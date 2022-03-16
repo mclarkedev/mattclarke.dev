@@ -3,6 +3,6 @@
 
 (defn build []
   (md-to-html-string
-   "# This is a test\nsome code follows\n```clojure\n(defn foo [])\n```"))
+   (slurp "resources/markdown/bio.md")))
 
 (build)
