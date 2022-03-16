@@ -1,1 +1,7 @@
 .DS_Store
+
+.cpcache
+.calva
+.nrepl-port
+.clj-kondo
+.lsp
