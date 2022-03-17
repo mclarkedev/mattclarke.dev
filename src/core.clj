@@ -1,11 +1,14 @@
 (ns dev.mattclarke.core
   (:require [markdown.core :refer [md-to-html-string md-to-html]]
             [clojure.java.io :as io]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [me.raynes.fs :refer [copy-dir-into]]))
 
 (def build-config
   {:input-md-from "resources/markdown/"
-   :output-html-to "target/public/"})
+   :input-assets-from "resources/public/"
+   :output-html-to "target/public/"
+   :output-assets-to "target/public/"})
 
 (defn remove-ext [s] (first (str/split s #"\.")))
 
@@ -37,14 +40,26 @@
                        (md :path)
                        (str dir (md :html-name)))))
 
+(defn copy-assets!
+  "Copy public assets from resource to target"
+  []
+  (let [from (build-config :input-assets-from)
+        to  (build-config :output-assets-to)]
+    (copy-dir-into
+     from
+     to)
+    (str from " => " to)))
+
 (defn report [md-data]
   (map #(str (:md-name %) " => " (:html-name %)) md-data))
 
 (defn build []
-  (let [md-data (get-markdown-data (build-config :input-md-from))]
+  (let [md-data (get-markdown-data (build-config :input-md-from))
+        asset-data (copy-assets!)]
     (write-md-to-html!
      md-data
      (build-config :output-html-to))
-    (report md-data)))
+    {:md (report md-data)
+     :assets asset-data}))
 
 (build)
