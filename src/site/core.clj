@@ -1,10 +1,10 @@
-(ns dev.mattclarke.core
+(ns site.core
   (:require [markdown.core :refer [md-to-html-string-with-meta]]
             [clojure.java.io :as io]
             [me.raynes.fs :refer [copy-dir-into]]
             [hiccup.core :refer [html]]
-            [dev.mattclarke.utils :refer [remove-ext str=> get-files]]
-            [dev.mattclarke.head :refer [make-page-head make-index-head]]))
+            [site.utils :refer [remove-ext str=> get-files]]
+            [site.head :refer [make-page-head make-index-head]]))
 
 (def build-config
   {:input-md-from "resources/markdown/"
@@ -70,21 +70,21 @@
   [head nav body]
   (str "<html>" head nav body "</html>"))
 
-(defn write-page! 
+(defn write-page!
   "Writes to :html-write-path and joins page head, body, and nav"
   [md nav]
-  (spit (md :html-write-path) (stitch-html (md :html-head) nav (md :html-body))))
+  (let [html (stitch-html (md :html-head) nav (md :html-body))]
+    (spit (md :html-write-path) html) html))
 
 (defn write-pages!
   "Writes html to dir for each page in page-data"
   [md-data nav]
-  (io/make-parents (str (build-config :output-html-to) "_")) ;; "_" is used to make parents
   (doseq [md md-data]
     (write-page! md nav)
     md)
   md-data)
 
-(def index-page
+(def index-page-data
   {:html-head (make-index-head)
    :html-body "<h1>Matthew Clarke</h1>"
    :html-write-path (str (build-config :output-html-to) "index.html")})
@@ -92,8 +92,9 @@
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
-  {:index (write-page! index-page (make-nav md-data))
+  (io/make-parents (str (build-config :output-html-to) "_")) ;; "_" is used to make parents
+  (print {:index (write-page! index-page-data (make-nav md-data))
    :md (write-pages! md-data (make-nav md-data))
-   :assets (copy-assets!)})
+   :assets (copy-assets!)}))
 
 (build-site! (get-markdown-data))

@@ -1,4 +1,4 @@
-(ns dev.mattclarke.utils
+(ns site.utils
   (:require [clojure.string :as str]
             [clojure.java.io :as io]))
 

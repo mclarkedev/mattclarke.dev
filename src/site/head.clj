@@ -1,4 +1,4 @@
-(ns dev.mattclarke.head
+(ns site.head
   (:require [hiccup.core :refer [html]]))
 
 (def gc
