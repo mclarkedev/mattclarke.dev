@@ -1,8 +1,9 @@
 (ns dev.mattclarke.core
-  (:require [markdown.core :refer [md-to-html-string md-to-html-string-with-meta]]
+  (:require [markdown.core :refer [md-to-html-string-with-meta]]
             [clojure.java.io :as io]
             [me.raynes.fs :refer [copy-dir-into]]
-            [dev.mattclarke.utils :refer [remove-ext str=> get-files]]))
+            [dev.mattclarke.utils :refer [remove-ext str=> get-files]]
+            [dev.mattclarke.head :refer [make-page-head]]))
 
 (def build-config
   {:input-md-from "resources/markdown/"
@@ -10,25 +11,22 @@
    :output-html-to "target/public/"
    :output-assets-to "target/public/"})
 
-(defn make-page-head
-  "Make html head string from markdown page data."
-  [metadata]
-  "<head><meta></meta></head>")
-
 (defn make-markdown-data
   "Return helper data for f (a markdown Java File) to be exported as html."
   [f]
   (let [basename (remove-ext (.getName f))
         path (str f)
         html-name (str basename ".html")
-        md-with-meta (md-to-html-string-with-meta (slurp path))]
+        md-with-meta (md-to-html-string-with-meta (slurp path))
+        md-meta (md-with-meta :metadata)]
     {:md-name (.getName f)
      :basename basename
+     :title (first (md-meta :title))
      :html-name html-name
-     :html-write-dir (str (build-config :output-html-to) html-name)
+     :html-write-path (str (build-config :output-html-to) html-name)
      :path path
      :html-body (md-with-meta :html)
-     :html-head (make-page-head (md-with-meta :metadata))}))
+     :html-head (make-page-head md-meta)}))
 
 (defn get-markdown-data
   "Returns markdown data from dir (a directory) of .md files"
@@ -48,7 +46,7 @@
 (defn make-link
   "Make a link from a md data item"
   [md]
-  (str "<a href=\"/" (md :html-name) "\" >" (md :basename) "</a>"))
+  (str "<a href=\"/" (md :html-name) "\" >" (md :title) "</a>"))
 
 (defn make-nav
   "Build navigation from md-data"
@@ -61,9 +59,9 @@
   (str "<html>" head nav body "</html>"))
 
 (defn write-page! 
-  "Writes to :html-write-dir and joins page head, body, and nav"
+  "Writes to :html-write-path and joins page head, body, and nav"
   [md nav]
-  (spit (md :html-write-dir) (stitch-html (md :html-head) nav (md :html-body))))
+  (spit (md :html-write-path) (stitch-html (md :html-head) nav (md :html-body))))
 
 (defn write-pages!
   "Writes html to dir for each page in page-data"
