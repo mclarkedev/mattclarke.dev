@@ -44,10 +44,21 @@
      to)
     (str=> from to)))
 
-(defn build []
+(defn make-link
+  "Make a link from a md data item"
+  [md]
+  (str "<a href=\"/" (md :html-name) "\" />" ))
+
+(defn make-nav 
+  "Build navigation from md-data"
+  [md-data] 
+  (apply str (map make-link md-data)))
+
+(defn build [md-data]
   {:md     (write-md-to-html!
-            (get-markdown-data (build-config :input-md-from))
+            md-data
             (build-config :output-html-to))
+   :nav (make-nav md-data)
    :assets (copy-assets!)})
 
-(build)
+(build (get-markdown-data (build-config :input-md-from)))
