@@ -6,7 +6,7 @@ A personal blog by Matthew Clarke.
 
 ### Users
 
-- Myself, a designer, developer, and writer. 
+- Myself, a designer, developer, and writer.
 - Hiring Professionals, either technical requiters, managers, designers, developers and product managers.
 - Non-hiring Professionals, either hackers, designers, with a range of skillsets
 
@@ -33,8 +33,8 @@ A personal blog by Matthew Clarke.
 In a functional spirit, we're going to avoid state and javascript events by default.
 Our program should be a function that accepts a collection of markdown files and outputs a multi-page website (HTML, CSS, JS) to be statically hosted.
 
-- Input data: Articles written in markdown, and media assets
-- Output data: HTML, CSS, JS, media assets
+- Input data: Path to markdown, and path to public assets
+- Output data: Index HTML page, HTML pages, and public assets
 
 #### Parsing
 
