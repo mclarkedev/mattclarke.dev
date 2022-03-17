@@ -49,10 +49,21 @@
   [md]
   (html [:a {:href (md :html-name)} (md :title)]))
 
+(defn make-header
+  "Make header"
+  []
+  [:div.header [:a {:href "/"} "Matthew Clarke"]])
+
+(defn make-menu
+  "Make menu html from links from our md-data"
+  [md-data]
+  [:div.menu (apply str (map make-link md-data))])
+
 (defn make-nav
   "Build navigation from md-data"
-  [md-data] 
-  (html [:div.nav (apply str (map make-link md-data))]))
+  [md-data]
+  (html (make-header)
+        (make-menu md-data)))
 
 (defn stitch-html
   "Stitch head, nav, and body into main template."
