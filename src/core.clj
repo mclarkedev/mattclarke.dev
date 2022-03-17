@@ -28,7 +28,7 @@
      :html-write-dir (str (build-config :output-html-to) html-name)
      :path path
      :html-body (md-with-meta :html)
-     :html-head (md-with-meta :metadata)}))
+     :html-head (make-page-head (md-with-meta :metadata))}))
 
 (defn get-markdown-data
   "Returns markdown data from dir (a directory) of .md files"
