@@ -1,2 +1,2 @@
 build:
-	clj -M src/site/core.clj
+	clj -M src/mattclarke/core.clj

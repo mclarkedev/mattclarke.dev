@@ -1,10 +1,10 @@
-(ns site.core
+(ns mattclarke.core
   (:require [markdown.core :refer [md-to-html-string-with-meta]]
             [clojure.java.io :as io]
             [me.raynes.fs :refer [copy-dir-into]]
             [hiccup.core :refer [html]]
-            [site.utils :refer [remove-ext str=> get-files]]
-            [site.head :refer [make-page-head make-index-head]]))
+            [mattclarke.utils :refer [remove-ext str=> get-files]]
+            [mattclarke.head :refer [make-page-head make-index-head]]))
 
 (def build-config
   {:input-md-from "resources/markdown/"
