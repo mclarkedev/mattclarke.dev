@@ -2,6 +2,7 @@
   (:require [markdown.core :refer [md-to-html-string-with-meta]]
             [clojure.java.io :as io]
             [me.raynes.fs :refer [copy-dir-into]]
+            [hiccup.core :refer [html]]
             [dev.mattclarke.utils :refer [remove-ext str=> get-files]]
             [dev.mattclarke.head :refer [make-page-head make-index-head]]))
 
@@ -46,12 +47,12 @@
 (defn make-link
   "Make a link from a md data item"
   [md]
-  (str "<a href=\"/" (md :html-name) "\" >" (md :title) "</a>"))
+  (html [:a {:href (md :html-name)} (md :title)]))
 
 (defn make-nav
   "Build navigation from md-data"
   [md-data] 
-  (apply str (map make-link md-data)))
+  (html [:div.nav (apply str (map make-link md-data))]))
 
 (defn stitch-html
   "Stitch head, nav, and body into main template."

@@ -1,5 +1,5 @@
 (ns dev.mattclarke.head
-  (:require [hiccup.core :as html]))
+  (:require [hiccup.core :refer [html]]))
 
 (def gc
   "Global Content"
@@ -9,7 +9,7 @@
      :css-path "/css/global.css"
      :site-url "https://matthewclarke.dev"
      :author author
-     :title (str author " - 2022")
+     :title author
      :description desc
      :og:image "image.png"
      :favicon.ico "/favicon.ico"
@@ -39,7 +39,7 @@
 (defn make-index-head
   "Make index head from gc, global content"
   []
-  (html/html [:head
+  (html [:head
               (global-fonts)
               (global-technical)
               (global-icon-links)
@@ -53,7 +53,7 @@
 (defn make-page-head
   "Make html head from markdown page data."
   [metadata]
-  (html/html [:head
+  (html [:head
               (global-fonts)
               (global-technical)
               (global-icon-links)
