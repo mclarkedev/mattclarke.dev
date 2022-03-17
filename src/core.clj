@@ -1,21 +1,14 @@
 (ns dev.mattclarke.core
   (:require [markdown.core :refer [md-to-html-string md-to-html]]
             [clojure.java.io :as io]
-            [clojure.string :as str]
-            [me.raynes.fs :refer [copy-dir-into]]))
+            [me.raynes.fs :refer [copy-dir-into]]
+            [dev.mattclarke.utils :refer [remove-ext str=> get-files]]))
 
 (def build-config
   {:input-md-from "resources/markdown/"
    :input-assets-from "resources/public/"
    :output-html-to "target/public/"
    :output-assets-to "target/public/"})
-
-(defn remove-ext [s] (first (str/split s #"\.")))
-
-(defn get-files
-  "Read all file paths in dir (a directory). Return a vector of Java Files"
-  [dir]
-  (filter #(.isFile %) (file-seq (io/file dir))))
 
 (defn make-markdown-data
   "Return :markdown-name, :basename, :html-name, :path for f (a Java File)"
@@ -38,7 +31,8 @@
   (io/make-parents (str dir "_")) ;; '_' is used to make parents
   (doseq [md md-data] (md-to-html
                        (md :path)
-                       (str dir (md :html-name)))))
+                       (str dir (md :html-name))))
+  (map #(str=> (:md-name %) (:html-name %)) md-data))
 
 (defn copy-assets!
   "Copy public assets from resource to target"
@@ -48,18 +42,12 @@
     (copy-dir-into
      from
      to)
-    (str from " => " to)))
-
-(defn report [md-data]
-  (map #(str (:md-name %) " => " (:html-name %)) md-data))
+    (str=> from to)))
 
 (defn build []
-  (let [md-data (get-markdown-data (build-config :input-md-from))
-        asset-data (copy-assets!)]
-    (write-md-to-html!
-     md-data
-     (build-config :output-html-to))
-    {:md (report md-data)
-     :assets asset-data}))
+  {:md     (write-md-to-html!
+            (get-markdown-data (build-config :input-md-from))
+            (build-config :output-html-to))
+   :assets (copy-assets!)})
 
 (build)
