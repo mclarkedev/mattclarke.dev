@@ -16,7 +16,7 @@
      :favicon.svg "/favicon.svg"
      :apple-touch-icon "/apple-touch-icon.png"}))
 
-(defn open-graph []
+(defn index-open-graph []
   [:meta {:property "og:title", :content (gc :title)}]
   [:meta {:property "og:type", :content "website"}]
   [:meta {:property "og:url", :content (gc :site-url)}]
@@ -36,17 +36,19 @@
   [:meta {:charset "utf-8"}]
   [:meta {:name "viewport", :content "width=device-width, initial-scale=1"}])
 
-;; (defn make-global-head []
-;;   (html/html [:head
-;;               (global-fonts)
-;;               (global-technical)
-;;               (global-icon-links)
-;;             ;;   [:title (gc :title)]
-;;             ;;   [:meta {:name "description", :content (gc :description)}]
-;;             ;;   [:meta {:name "author", :content (gc :author)}]
-;;             ;;   (open-graph)
-;;             ;;   [:link {:type "text/css", :href (gc :css-path), :rel "stylesheet"}]
-;;               ]))
+(defn make-index-head
+  "Make index head from gc, global content"
+  []
+  (html/html [:head
+              (global-fonts)
+              (global-technical)
+              (global-icon-links)
+              [:title (gc :title)]
+              [:meta {:name "description", :content (gc :description)}]
+              [:meta {:name "author", :content (gc :author)}]
+              (index-open-graph)
+              [:link {:type "text/css", :href (gc :css-path), :rel "stylesheet"}]
+              ]))
 
 (defn make-page-head
   "Make html head from markdown page data."
