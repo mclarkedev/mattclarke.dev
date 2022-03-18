@@ -12,11 +12,6 @@
    :output-html-to "target/public/"
    :output-assets-to "target/public/"})
 
-(def index-page-data
-  {:html-head (make-index-head)
-   :html-body ""
-   :html-write-path (str (build-config :output-html-to) "index.html")})
-
 (defn make-markdown-data
   "Return helper data for f (a markdown Java File) to be exported as html."
   [f]
@@ -54,6 +49,11 @@
   [md]
   (html [:a {:href (md :html-name)} (md :title)]))
 
+(defn make-links
+  "Make links from md-data"
+  [md-data]
+  (apply str (map make-link md-data)))
+
 (defn make-header
   "Make header"
   []
@@ -62,13 +62,27 @@
 (defn make-menu
   "Make menu html from links from our md-data"
   [md-data]
-  [:div.menu (apply str (map make-link md-data))])
+  [:div.menu (make-links md-data)])
 
 (defn make-nav
   "Build navigation from md-data"
   [md-data]
   (html (make-header)
         (make-menu md-data)))
+
+(defn make-index-body
+  "Make index page body"
+  [md-data]
+  (html [:div.writing
+         [:h5 "Writing"]
+         [:div.index (make-links md-data)]]))
+
+(defn make-index-page-data 
+  "Make index page data from our md-data" 
+  [md-data]
+  {:html-head (make-index-head)
+   :html-body (make-index-body md-data)
+   :html-write-path (str (build-config :output-html-to) "index.html")})
 
 (defn stitch-html
   "Stitch head, nav, and body into main template."
@@ -96,9 +110,10 @@
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
-  (.mkdirs (io/file (build-config :output-html-to))) 
-  (print {:index (write-page! index-page-data (make-nav md-data))
-   :md (write-pages! md-data (make-nav md-data))
-   :assets (copy-assets!)}))
+  (.mkdirs (io/file (build-config :output-html-to)))
+  (print
+   {:index (write-page! (make-index-page-data md-data) (make-header)) ;; Index only has header
+    :md (write-pages! md-data (make-nav md-data))
+    :assets (copy-assets!)}))
 
 (build-site! (get-markdown-data))
