@@ -61,11 +61,15 @@ p {
 
 .header > a {
   color: var(--text-color);
+  text-decoration: none;
 }
 
 .menu > a {
   display: block;
-  color: var(--text-color);
+  color: var(--link-color);
+  text-decoration: none;
+
+  padding-bottom: var(--padding);
 }
 
 @media (min-width: 920px) {
