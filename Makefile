@@ -1,5 +1,5 @@
 build:
-	clj -X mattclarke.core/run!
+	clj -X mattclarke.core/run!!
 
 dev: 
 	make -j 2 local-server watch-files
