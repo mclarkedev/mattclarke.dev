@@ -1,5 +1,5 @@
 build:
-	clj -M ./src/mattclarke/core.clj
+	clj -M ./src/mattclarke/core.clj _
 
 dev: 
 	make -j 2 local-server watch-files
