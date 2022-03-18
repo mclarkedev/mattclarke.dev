@@ -96,7 +96,7 @@
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
-  (io/make-parents (str (build-config :output-html-to) "_")) ;; "_" is used to make parents
+  (.mkdirs (io/file (build-config :output-html-to))) 
   (print {:index (write-page! index-page-data (make-nav md-data))
    :md (write-pages! md-data (make-nav md-data))
    :assets (copy-assets!)}))
