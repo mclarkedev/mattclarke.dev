@@ -1,4 +1,5 @@
 {:deps
  {markdown-clj/markdown-clj {:mvn/version "1.10.9"}
   me.raynes/fs {:mvn/version "1.4.6"}
-  hiccup/hiccup {:mvn/version "1.0.5"}}}
+  hiccup/hiccup {:mvn/version "1.0.5"}
+  hawk/hawk {:mvn/version "0.2.11"}}}

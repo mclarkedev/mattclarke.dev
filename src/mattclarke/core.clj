@@ -12,6 +12,11 @@
    :output-html-to "target/public/"
    :output-assets-to "target/public/"})
 
+(def index-page-data
+  {:html-head (make-index-head)
+   :html-body "<h1>Matthew Clarke</h1>"
+   :html-write-path (str (build-config :output-html-to) "index.html")})
+
 (defn make-markdown-data
   "Return helper data for f (a markdown Java File) to be exported as html."
   [f]
@@ -68,7 +73,11 @@
 (defn stitch-html
   "Stitch head, nav, and body into main template."
   [head nav body]
-  (str "<html>" head nav body "</html>"))
+  (html [:html
+         head
+         [:body
+          nav
+          [:main body]]]))
 
 (defn write-page!
   "Writes to :html-write-path and joins page head, body, and nav"
@@ -83,11 +92,6 @@
     (write-page! md nav)
     md)
   md-data)
-
-(def index-page-data
-  {:html-head (make-index-head)
-   :html-body "<h1>Matthew Clarke</h1>"
-   :html-write-path (str (build-config :output-html-to) "index.html")})
 
 (defn build-site!
   "Builds the site from our transformed md-data"

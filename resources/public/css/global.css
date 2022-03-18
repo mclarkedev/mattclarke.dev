@@ -3,6 +3,29 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+main {
+  width: 600px;
+  margin: auto;
+}
+
+img {
+  width: 600px;
+}
+
+.menu {
+  position: fixed;
+  display: none;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .menu > a {
   display: block;
+}
+
+@media (min-width: 600px) {
+  .menu {
+    display: block;
+  }
 }
