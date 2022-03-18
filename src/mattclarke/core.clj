@@ -75,7 +75,9 @@
   [md-data]
   (html [:div.writing
          [:h5 "Writing"]
-         [:div.index (make-links md-data)]]))
+         [:div.index (make-links md-data)]]
+        [:div.watching
+         [:h5 "Watching"]]))
 
 (defn make-index-page-data 
   "Make index page data from our md-data" 

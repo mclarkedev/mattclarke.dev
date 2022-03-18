@@ -2,6 +2,8 @@
   --bg-color: white;
   --text-color: black;
 
+  --link-weight: 600;
+  --heading-weight: 500;
   --main-width: 430px;
   --line-height: 145%;
   --padding: 24px;
@@ -43,13 +45,20 @@ img {
 
 h1 {
   font-size: 2.5em;
+  font-weight: var(--heading-weight);
+}
+
+h3 {
+  font-weight: var(--heading-weight);
+  color: lightgray;
 }
 
 h5 {
-  font-weight: 500;
+  font-weight: var(--heading-weight);
 }
 
 p {
+  letter-spacing: 0.01;
   line-height: var(--line-height);
 }
 
@@ -73,14 +82,14 @@ p {
 
 .header > a {
   color: var(--text-color);
-  font-weight: 600;
+  font-weight: var(--link-weight);
   text-decoration: none;
 }
 
 .menu > a,
 .index > a {
   display: block;
-  color: var(--link-color);
+  color: var(--link-weight);
   font-weight: 600;
   text-decoration: none;
 
@@ -88,8 +97,9 @@ p {
 }
 
 .index > a {
-  font-size: xx-large;
+  font-size: 3vmax;
   text-decoration: underline;
+  font-weight: var(--heading-weight);
 }
 
 .writing {
