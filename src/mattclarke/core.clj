@@ -118,4 +118,11 @@
     :md (write-pages! md-data (make-nav md-data))
     :assets (copy-assets!)}))
 
-(build-site! (get-markdown-data))
+(defn run!
+  "Run our build process"
+  [args]
+  (build-site! (get-markdown-data)))
+
+(comment
+  (run! {:args ""})
+  )

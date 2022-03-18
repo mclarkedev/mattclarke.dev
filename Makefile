@@ -1,11 +1,11 @@
 build:
-	clj -M ./src/mattclarke/core.clj _
+	clj -X mattclarke.core/run!
 
 dev: 
 	make -j 2 local-server watch-files
 
 watch-files:
-	clj -M ./src/mattclarke/dev.clj
+	clj -M src/mattclarke/dev.clj
 
 local-server:
 	cd target/public && npx live-server --port=8000 
