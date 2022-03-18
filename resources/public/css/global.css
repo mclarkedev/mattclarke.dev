@@ -6,25 +6,38 @@ body {
 main {
   width: 600px;
   margin: auto;
+
+  padding: 24px;
 }
 
 img {
   width: 600px;
 }
 
+.header {
+  padding: 24px;
+}
+
 .menu {
   position: fixed;
   display: none;
-  right: 0;
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
+
+  padding: 24px;
+}
+
+.header > a {
+  color: black;
 }
 
 .menu > a {
   display: block;
+  color: black;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 920px) {
   .menu {
     display: block;
   }

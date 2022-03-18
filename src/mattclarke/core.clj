@@ -14,7 +14,7 @@
 
 (def index-page-data
   {:html-head (make-index-head)
-   :html-body "<h1>Matthew Clarke</h1>"
+   :html-body ""
    :html-write-path (str (build-config :output-html-to) "index.html")})
 
 (defn make-markdown-data
