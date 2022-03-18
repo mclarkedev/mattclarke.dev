@@ -1,17 +1,18 @@
 :root {
-  --main-width: 520px;
   --bg-color: white;
   --text-color: black;
 
+  --main-width: 430px;
+  --line-height: 145%;
   --padding: 24px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: rgb(14, 14, 26);
     --text-color: rgb(255, 255, 255);
   }
-}
+} */
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -23,6 +24,7 @@ body {
 main {
   max-width: var(--main-width);
   margin: auto;
+  margin-top: var(--padding);
 
   padding: var(--padding);
 }
@@ -31,11 +33,20 @@ img {
   width: var(--main-width);
 }
 
+h1 {
+  font-size: 2.5em;
+}
+
+p {
+  line-height: var(--line-height);
+}
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  background-color: var(--bg-color);
   padding: var(--padding);
 }
 
@@ -45,7 +56,6 @@ img {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-
   padding: var(--padding);
 }
 
@@ -59,7 +69,13 @@ img {
 }
 
 @media (min-width: 920px) {
+  /* Show menu */
   .menu {
     display: block;
+  }
+
+  /* Transparent header */
+  .header {
+    background-color: rgba(0, 0, 0, 0);
   }
 }

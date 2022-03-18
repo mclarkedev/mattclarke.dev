@@ -31,7 +31,7 @@
      :html-name html-name
      :html-write-path (str (build-config :output-html-to) html-name)
      :path path
-     :html-body (md-with-meta :html)
+     :html-body (html [:article (md-with-meta :html)])
      :html-head (make-page-head md-meta)}))
 
 (defn get-markdown-data

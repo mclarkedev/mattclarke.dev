@@ -1,8 +1,10 @@
 Title: Finding Art You Love
 
+![Gold framed painting with the words 'New Management' written over it.](/images/manage.png "Simon Deny, ‘New Management’ (installation detail view), 2014")
+
 # Finding Art You Love
 
-> Reflections on my experience shipping art browsing features at Arthur.
+### Reflections on my experience shipping art browsing features at Arthur.
 
 Keeping up with contemporary art can be taxing. Its rank with eye rolls, over-hyped projects, lots of information, scams and fraud. In the occasion you find something you love, it can feel like the haze appears again and again whenever you dig deeper.
 
