@@ -1,5 +1,5 @@
 build:
-	clj -X:build
+	clojure --version && clj -X:build
 # clj -X mattclarke.core/run!!
 
 dev: 
