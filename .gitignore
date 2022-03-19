@@ -7,3 +7,5 @@
 .lsp
 
 target
+# Local Netlify folder
+.netlify

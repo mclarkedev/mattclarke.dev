@@ -2,13 +2,19 @@ build:
 	clojure --version && clj -X:build
 # clj -X mattclarke.core/run!!
 
-dev: 
-	make -j 2 local-server watch-files
+preview:
+	cd target/public && netlify deploy --open
 
-watch-files:
+release:
+	cd target/public && netlify deploy --prod
+
+dev: 
+	make -j 2 dev-server dev-watch
+
+dev-watch:
 	clj -M src/mattclarke/dev.clj
 
-local-server:
+dev-server:
 	cd target/public && npx live-server --port=8000 
 
 # py-server:
