@@ -37,7 +37,7 @@
 (defn make-link
   "Make a link from a md data item"
   [md]
-  (html [:a {:href (md :html-name)} (md :title)]))
+  (html [:a.link {:href (md :html-name)} (md :title)]))
 
 (defn make-links
   "Make links from md-data"

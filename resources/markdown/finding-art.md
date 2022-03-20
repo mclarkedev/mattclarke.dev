@@ -1,7 +1,5 @@
 Title: Finding Art You Love
 
-![Gold framed painting with the words 'New Management' written over it.](/images/manage.png "Simon Deny, ‘New Management’ (installation detail view), 2014")
-
 # Finding Art You Love
 
 ### Reflections on my experience shipping art browsing features at Arthur.
@@ -12,7 +10,7 @@ In a time where art can be anything or nothing, the issue seems to multiply as a
 
 No matter where you stand, you’re likeling going to have an aesthetic itch to scratch from time to time. So, how do you find it? How do you sustain finding it in a rapidly changing landscape? While I’m certainly biased––having worked in art publishing––I’ve always found solace in used art book stores. I can’t always get myself there, but when I do my experience is far more memorable than sifting through online grift.
 
-[image]
+![Gold framed painting with the words 'New Management' written over it.](/images/manage.png "Simon Deny, ‘New Management’ (installation detail view), 2014")
 
 > Park Seung Hoon, ‘ART BOOK STORE VOCCA’, 2012
 
