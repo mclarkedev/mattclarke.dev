@@ -34,16 +34,6 @@
   []
   (map make-markdown-data (get-files (build-config :input-md-from))))
 
-(defn copy-assets!
-  "Copy public assets from resource to target"
-  []
-  (let [from (build-config :input-assets-from)
-        to  (build-config :output-assets-to)]
-    (copy-dir-into
-     from
-     to)
-    (str=> from to)))
-
 (defn make-link
   "Make a link from a md data item"
   [md]
@@ -109,6 +99,16 @@
     md)
   md-data)
 
+(defn copy-assets!
+  "Copy public assets from resource to target"
+  []
+  (let [from (build-config :input-assets-from)
+        to  (build-config :output-assets-to)]
+    (copy-dir-into
+     from
+     to)
+    (str=> from to)))
+
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
@@ -121,7 +121,7 @@
 (defn run!!
   "Run our build process"
   [_]
-  (build-site! (get-markdown-data)))
+  (time (build-site! (get-markdown-data))))
 
 (comment
-  (run!! {:args ""}))
+  (time (run!! {:args ""})))

@@ -29,7 +29,7 @@
   [:link {:rel "apple-touch-icon", :href (gc :apple-touch-icon)}])
 
 (defn global-fonts [] "<style>
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap');
 </style>")
 
 (defn global-technical []
