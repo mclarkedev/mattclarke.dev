@@ -8,6 +8,7 @@
 
 (def build-config
   {:input-md-from "resources/markdown/"
+   :input-links-from "resources/links.md"
    :input-assets-from "resources/public/"
    :output-html-to "target/public/"
    :output-assets-to "target/public/"})
@@ -15,6 +16,7 @@
 (defn make-markdown-data
   "Return helper data for f (a markdown Java File) to be exported as html."
   [f]
+  (print f)
   (let [basename (remove-ext (.getName f))
         path (str f)
         html-name (str basename ".html")
@@ -28,6 +30,9 @@
      :path path
      :html-body (html [:article (md-with-meta :html)])
      :html-head (make-page-head md-meta)}))
+
+(defn external-links []
+  (:html (md-to-html-string-with-meta (slurp (str (io/file (build-config :input-links-from)))))))
 
 (defn get-markdown-data
   "Returns markdown data from dir (a directory) of .md files"
@@ -48,6 +53,8 @@
 ;;   "Make dot"
 ;;   [md]
 ;;   (html [:a.link.dot {:href (md :html-name)}]))
+
+;; (defn make-learning-table)
 
 (defn make-row 
   "Make a row"
@@ -86,7 +93,8 @@
          [:h5 "Writing"]
          [:div.index (make-table md-data)]]
         [:div.watching
-         [:h5 "Watching"]]))
+         [:h5 "Watching"]
+         [:div (external-links)]]))
 
 (defn make-index-page-data 
   "Make index page data from our md-data" 
