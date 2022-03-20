@@ -1,9 +1,8 @@
 :root {
   --bg-color: white;
   --text-color: black;
-
-  --link-weight: 500;
-  --heading-weight: 480;
+  --link-weight: 400;
+  --heading-weight: 600;
   --main-width: 460px;
   --line-height: 133%;
   --padding: 24px;
@@ -18,7 +17,7 @@
 } */
 
 * {
-  font-size: small;
+  font-size: 14px;
 }
 
 body {
@@ -26,19 +25,15 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
-
   margin: 0px;
 }
 
 main {
-  /* margin-top: var(--padding); */
-
   padding: var(--padding);
 }
 
 article {
   max-width: var(--main-width);
-
   margin: auto;
 }
 
@@ -50,23 +45,49 @@ h1 {
   font-size: 1.5em;
   margin-bottom: 42px;
   margin-top: 0px;
-  /* margin-top: 42px; */
 }
 
 h5 {
   font-weight: var(--heading-weight);
+
+  letter-spacing: 0px;
+  letter-spacing: 0px;
+  /* transform: skew(50); */
+  transform: scale3d(30 3 4);
 }
 
 p {
   line-height: var(--line-height);
 }
 
-.header {
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  right: 0; */
+a {
+  color: var(--text-color);
+  transition: color 0.1s ease-in-out;
+}
 
+a:visited:hover {
+  color: var(--text-color);
+}
+
+a:visited {
+  /* color: rgb(100, 98, 98); */
+}
+
+.link.dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 40px;
+  background-color: #000000;
+  padding: 0px;
+  margin-right: -12px;
+  transform: translateX(-12px);
+}
+
+.link.dot:visited {
+  background-color: rgb(168, 168, 168);
+}
+
+.header {
   position: static;
   border-bottom: 1px solid black;
   background-color: var(--bg-color);
@@ -79,23 +100,21 @@ p {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-
   padding: var(--padding);
 }
 
 .header > a {
-  color: var(--text-color);
-  font-weight: var(--link-weight);
+  color: var(--text-color); /* Disable :visited in header  */
+  font-weight: var(--heading-weight);
   text-decoration: none;
 }
 
 .menu > a,
 .index > a {
   display: block;
-  color: var(--text-color);
+
   font-weight: var(--link-weight);
   text-decoration: none;
-
   margin-bottom: var(--padding);
 }
 
@@ -110,12 +129,35 @@ p {
   transform: translateY(-50%);
 }
 
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  /* display: inline-block; */
+  border-bottom: 1px solid rgb(0, 0, 0);
+  /* transform: translateX(-14px); */
+  width: 322px;
+}
+
+td > a {
+  /* border-left: 4em solid rgb(247, 236, 236); */
+  padding: 16px 0px;
+
+  margin-right: 24px;
+
+  display: block;
+  color: var(--text-color);
+  font-weight: var(--link-weight);
+  text-decoration: none;
+  /* margin-bottom: var(--padding); */
+}
+
 /* Large Tablet + Desktops */
 @media (min-width: 770px) {
   /* Show menu */
   .menu {
     display: block;
-
     width: 176px;
   }
 

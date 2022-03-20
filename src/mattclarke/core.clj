@@ -44,6 +44,25 @@
   [md-data]
   (apply str (map make-link md-data)))
 
+;; (defn make-link-dot
+;;   "Make dot"
+;;   [md]
+;;   (html [:a.link.dot {:href (md :html-name)}]))
+
+(defn make-row 
+  "Make a row"
+  [md]
+  [:tr 
+  ;;  [:td (make-link-dot md)]
+   [:td (make-link md)] 
+   [:td (md :html-name)]
+   ])
+
+(defn make-table 
+  "Make a table"
+  [data]
+  (html [:table [:tbody (map make-row data)]]))
+
 (defn make-header
   "Make header"
   []
@@ -65,7 +84,7 @@
   [md-data]
   (html [:div.writing
          [:h5 "Writing"]
-         [:div.index (make-links md-data)]]
+         [:div.index (make-table md-data)]]
         [:div.watching
          [:h5 "Watching"]]))
 
@@ -76,26 +95,32 @@
    :html-body (make-index-body md-data)
    :html-write-path (str (build-config :output-html-to) "index.html")})
 
+(defn make-footer
+  "Make index footer"
+  [md-data]
+  (html [:article (make-index-body md-data)]))
+
 (defn stitch-html
   "Stitch head, nav, and body into main template."
-  [head nav body]
+  [head nav body footer]
   (html [:html
          head
          [:body
           nav
-          [:main body]]]))
+          [:main body
+           [:div footer]]]]))
 
 (defn write-page!
   "Writes to :html-write-path and joins page head, body, and nav"
-  [md nav]
-  (let [html (stitch-html (md :html-head) nav (md :html-body))]
+  [md nav footer]
+  (let [html (stitch-html (md :html-head) nav (md :html-body) footer)]
     (spit (md :html-write-path) html) html))
 
 (defn write-pages!
-  "Writes html to dir for each page in page-data"
+  "Writes html to dir for each page in our markdown data"
   [md-data nav]
   (doseq [md md-data]
-    (write-page! md nav)
+    (write-page! md nav (make-footer md-data))
     md)
   md-data)
 
@@ -114,7 +139,7 @@
   [md-data]
   (.mkdirs (io/file (build-config :output-html-to)))
   (print
-   {:index (write-page! (make-index-page-data md-data) (make-header)) ;; Index only has header
+   {:index (write-page! (make-index-page-data md-data) (make-header) "") ;; Index only has header
     :md (write-pages! md-data (make-nav md-data))
     :assets (copy-assets!)}))
 
