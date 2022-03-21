@@ -22,6 +22,14 @@
       og-tags
       og:image))
 
+(defn get-og:images
+  "Get opengraph image for each in map"
+  [coll]
+  (map get-og:image coll))
+
+(get-og:images ["https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup", 
+                "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup"])
+
 (get-og:image "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup")
 
 (def url "http://127.0.0.1:8000/")
@@ -46,6 +54,13 @@
       filter-hrefs
       filter-external-links))
 
-(-> url
-    get-all-links
-    build-screenshots!)
+(comment
+  (-> url
+      get-all-links
+      get-og:images)
+  )
+
+;; (comment 
+;;   (-> url
+;;     get-all-links
+;;     build-screenshots!))

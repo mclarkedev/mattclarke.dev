@@ -32,8 +32,8 @@
      :html-body (html [:article (md-with-meta :html)])
      :html-head (make-page-head md-meta)}))
 
-(defn make-external-links []
-  (:html (md-to-html-string-with-meta (slurp (str (io/file (build-config :input-links-from)))))))
+;; (defn make-external-links []
+;;   (:html (md-to-html-string-with-meta (slurp (str (io/file (build-config :input-links-from)))))))
 
 (defn get-external-links []
   (-> "./resources/links.txt"
@@ -49,8 +49,8 @@
   []
   (map make-markdown-data (get-files (build-config :input-md-from))))
 
-(def make-tooltip [:span [:img {:src "https://www.scriptol.com/images/apache.png" :width "1s00px"}]
-                   [:h3 "Link"]])
+;; (def make-tooltip [:span [:img {:src "https://www.scriptol.com/images/apache.png" :width "1s00px"}]
+;;                    [:h3 "Link"]])
 
 (defn make-link
   "Make a link from a md data item"
@@ -64,10 +64,10 @@
   [md-data]
   (apply str (map make-link md-data)))
 
-(defn make-link-dot
-  "Make dot"
-  [md]
-  (html [:a.link.dot {:href (md :html-name)}]))
+;; (defn make-link-dot
+;;   "Make dot"
+;;   [md]
+;;   (html [:a.link.dot {:href (md :html-name)}]))
 
 ;; (defn make-learning-table)
 
@@ -107,9 +107,10 @@
   (html [:div.writing
          [:h5 "Writing"]
          [:div.index (make-table md-data)]]
-        [:div.watching
-         [:h5 "Watching"]
-         [:div (make-external-links2)]]))
+        ;; [:div.resources
+        ;;  [:h5 "Resources"]
+        ;;  [:div (get-external-links)]]
+        ))
 
 (defn make-index-page-data 
   "Make index page data from our md-data" 

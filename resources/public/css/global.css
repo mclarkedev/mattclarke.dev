@@ -46,7 +46,7 @@ img {
   width: var(--main-width);
 }
 
-.watching > div > a > img {
+.resources > div > a > img {
   width: 220px;
   margin: 12px;
   border-radius: 16px;
@@ -156,12 +156,12 @@ td > a {
   text-decoration: none;
 }
 
-.watching > div > p {
+.resources > div > p {
   display: flex;
   flex-wrap: wrap;
 }
 
-.watching > div > p > a {
+.resources > div > p > a {
   display: block;
   width: calc(176px - 24px);
   text-decoration: none;
