@@ -37,11 +37,11 @@
 ;; (defn make-external-links []
 ;;   (:html (md-to-html-string-with-meta (slurp (str (io/file (build-config :input-links-from)))))))
 
-(defn get-external-links []
-  (-> "./resources/links.txt"
-      slurp
-      (str/replace #"\d" "")
-      str/split-lines))
+;; (defn get-external-links []
+;;   (-> "./resources/links.txt"
+;;       slurp
+;;       (str/replace #"\d" "")
+;;       str/split-lines))
 
 ;;  (with-open [reader (io/reader "resources/resources.csv")]
 ;;     (doall
@@ -69,8 +69,9 @@
     [:tbody
      (map #(html
             [:tr
-             [:td [:a {:href (nth % 1)} (nth % 0)]]
-             [:td [:a {:href (nth % 1)} (nth % 2)]]])
+             [:td [:a {:href (nth % 1) :target "_blank"} (nth % 0)]]
+             [:td {:style "padding-right: 24px"} "⮥"]
+             [:td [:a {:href (nth % 1) :target "_blank"} (nth % 2)]]])
           (get-resources))]]))
 
 ;; (defn make-external-links2 []
