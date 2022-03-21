@@ -1,4 +1,5 @@
 (ns mattclarke.utils
+    (:import java.util.Base64)
   (:require [clojure.string :as str]
             [clojure.java.io :as io]))
 
@@ -10,3 +11,9 @@
   "Read all file paths in dir (a directory). Return a vector of Java Files"
   [dir]
   (filter #(.isFile %) (file-seq (io/file dir))))
+
+(defn encode [to-encode]
+  (String. (.encode (Base64/getEncoder) (.getBytes to-encode))))
+
+;; (defn decode [to-decode]
+;;   (String. (.decode (Base64/getDecoder) to-decode)))

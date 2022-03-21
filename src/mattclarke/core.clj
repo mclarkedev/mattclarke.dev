@@ -1,9 +1,10 @@
 (ns mattclarke.core
   (:require [markdown.core :refer [md-to-html-string-with-meta]]
             [clojure.java.io :as io]
+            [clojure.string :as str]
             [me.raynes.fs :refer [copy-dir-into]]
             [hiccup.core :refer [html]]
-            [mattclarke.utils :refer [remove-ext str=> get-files]]
+            [mattclarke.utils :refer [remove-ext str=> get-files encode]]
             [mattclarke.head :refer [make-page-head make-index-head]]))
 
 (def build-config
@@ -31,28 +32,42 @@
      :html-body (html [:article (md-with-meta :html)])
      :html-head (make-page-head md-meta)}))
 
-(defn external-links []
+(defn make-external-links []
   (:html (md-to-html-string-with-meta (slurp (str (io/file (build-config :input-links-from)))))))
+
+(defn get-external-links []
+  (-> "./resources/links.txt"
+      slurp
+      (str/replace #"\d" "")
+      str/split-lines))
+
+(defn make-external-links2 []
+  (map #(html [:a {:href %} [:img {:src (str "/images/screenshots/" (encode %) ".png")}]]) (get-external-links)))
 
 (defn get-markdown-data
   "Returns markdown data from dir (a directory) of .md files"
   []
   (map make-markdown-data (get-files (build-config :input-md-from))))
 
+(def make-tooltip [:span [:img {:src "https://www.scriptol.com/images/apache.png" :width "1s00px"}]
+                   [:h3 "Link"]])
+
 (defn make-link
   "Make a link from a md data item"
   [md]
-  (html [:a.link {:href (md :html-name)} (md :title)]))
+  (html [:a.link.tooltip {:href (md :html-name)} (md :title)
+        ;;  make-tooltip
+         ]))
 
 (defn make-links
   "Make links from md-data"
   [md-data]
   (apply str (map make-link md-data)))
 
-;; (defn make-link-dot
-;;   "Make dot"
-;;   [md]
-;;   (html [:a.link.dot {:href (md :html-name)}]))
+(defn make-link-dot
+  "Make dot"
+  [md]
+  (html [:a.link.dot {:href (md :html-name)}]))
 
 ;; (defn make-learning-table)
 
@@ -62,7 +77,7 @@
   [:tr 
   ;;  [:td (make-link-dot md)]
    [:td (make-link md)] 
-   [:td (md :html-name)]
+  ;;  [:td (md :html-name)]
    ])
 
 (defn make-table 
@@ -94,7 +109,7 @@
          [:div.index (make-table md-data)]]
         [:div.watching
          [:h5 "Watching"]
-         [:div (external-links)]]))
+         [:div (make-external-links2)]]))
 
 (defn make-index-page-data 
   "Make index page data from our md-data" 

@@ -46,8 +46,14 @@ img {
   width: var(--main-width);
 }
 
+.watching > div > a > img {
+  width: 220px;
+  margin: 12px;
+  border-radius: 16px;
+}
+
 h1 {
-  font-size: 1.5em;
+  font-size: 2em;
   margin-bottom: 42px;
   margin-top: 0px;
 }
@@ -64,12 +70,12 @@ p {
 }
 
 a {
-  color: var(--text-color);
+  /* color: var(--text-color); */
   transition: color 0.1s ease-in-out;
 }
 
 a:visited:hover {
-  color: var(--text-color);
+  /* color: var(--text-color); */
 }
 
 a:visited {
@@ -145,7 +151,7 @@ td > a {
   padding: 16px 0px;
   margin-right: 24px;
   display: block;
-  color: var(--text-color);
+  /* color: var(--text-color); */
   font-weight: var(--link-weight);
   text-decoration: none;
 }
@@ -188,4 +194,46 @@ td > a {
   article {
     margin-left: 220px;
   }
+}
+
+/* Vendor */
+
+.tooltip {
+  text-decoration: none;
+  position: relative;
+}
+
+.tooltip span {
+  display: none;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  color: black;
+  /* background: white; */
+  background-color: white;
+  transition: 3s;
+  /* transition: background-color 4s ease-in-out; */
+}
+
+.tooltip span img {
+  float: left;
+  margin: 0px 8px 8px 0;
+  width: 100px;
+}
+
+.tooltip:hover span {
+  background-color: rgb(0, 0, 0);
+  display: block;
+  position: absolute;
+  bottom: 70;
+  left: 270;
+  z-index: 1000;
+  width: auto;
+  max-width: 320px;
+  min-height: 128px;
+  border: 1px solid black;
+  margin-top: 12px;
+  margin-left: 32px;
+  overflow: hidden;
+  padding: 8px;
 }
