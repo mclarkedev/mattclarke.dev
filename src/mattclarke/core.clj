@@ -52,7 +52,7 @@
   [path]
   (let [csv (csv/read-csv (slurp path))
         header (first csv)
-        body (rest csv)]   {:header header :body body}))
+        body (rest csv)] {:header header :body body}))
 
 (defn get-resources
   "Get resources"
@@ -121,7 +121,10 @@
 (defn make-header
   "Make header"
   []
-  [:header.header [:a {:href "/"} "Matthew Clarke"]  [:a {:href "/"} "Contact"]])
+  [:header.header
+   [:a {:href "/"} "Matthew Clarke"]
+   [:a {:href "/"} "⚿"]
+   [:a {:href "/"} "Contact"]])
 
 (defn make-menu
   "Make menu html from links from our md-data"
@@ -138,12 +141,14 @@
   "Make index page body"
   [md-data]
   (html [:div.writing
-         [:h5 "Writing"]
+         [:h5 "☉ Writing"]
          [:div.index (make-table md-data)]]
         [:div.resources
-         [:h5 "Resources"]
+         [:h5 "☉ Resources"]
          [:div]
-         [:div (make-resource-table)]]))
+         [:div (make-resource-table)]]
+        ;; [:div.lines ]
+        ))
 
 (defn make-index-page-data
   "Make index page data from our md-data"
@@ -201,8 +206,8 @@
   "Make bio"
   []
   (html [:div.bio
-         [:h5 "Bio"]
-         [:div [:p "Matthew Clarke is a product designer and developer born in Rochester, Michigan."]]]))
+         [:h5 "☉ Bio"]
+         [:div [:p "Matthew Clarke is a product designer and developer based in Brooklyn, NY. "]]]))
 
 (defn build-site!
   "Builds the site from our transformed md-data"

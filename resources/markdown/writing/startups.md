@@ -2,46 +2,38 @@ Title: Early-stage Startup Culture
 
 # Early-stage Startup Culture
 
-### Reflections on my experience shipping art browsing features at Arthur.
+### How to manage small teams with high expectations.
 
-Keeping up with contemporary art can be taxing. Its rank with eye rolls, over-hyped projects, lots of information, scams and fraud. In the occasion you find something you love, it can feel like the haze appears again and again whenever you dig deeper.
+Startups have high expectations by default. And its no secret this causes strife. If you’ve ever seen Survivor, then you’re likely familiar with the difficulties of aligning a new team. While the game is wholely different, working at an early-stage startup can sometimes feel as competative, dramatic, and confusing. Whether you’re blind-sighted by a new strategy, or the one doing the blind-sighting, alliances form based on both how and what the team should build.
 
-In a time where art can be anything or nothing, the issue seems to multiply as art-curious users search for rabbitholes and influence aesthetics at scale. With more and more NFT art markets launching online, the tension between old and new markets has steeped a very real cultural debate. The zeitgiest feels more hostile than ever.
+In my experience, the how alliances are the most dangerous. As a product generalist, I’ve found myself in the midst of many how discussions.
 
-No matter where you stand, you’re likeling going to have an aesthetic itch to scratch from time to time. So, how do you find it? How do you sustain finding it in a rapidly changing landscape? While I’m certainly biased––having worked in art publishing––I’ve always found solace in used art book stores. I can’t always get myself there, but when I do my experience is far more memorable than sifting through online grift.
+In a how alliance, you’re always fighting an up-hill battle. To change how a team does something not only requires support from management but also your peers. It also requires that 1. people are open to discuss how you currently build product. If you don’t have a forum to dicusss how you’ll build, then you’re going to have how alliances. And the more diverse your team is, then the stronger each alliance will be.
 
-![Gold framed painting with the words 'New Management' written over it.](/images/manage.png "Simon Deny, ‘New Management’ (installation detail view), 2014")
+Most contributors I’ve worked with are eager to help build others ideas, even if they don’t anticipate an outcome. But when groups form differing opinions on the trade-offs needed to be successful they begin to polarize in secrecy.
 
-> Park Seung Hoon, ‘ART BOOK STORE VOCCA’, 2012
+Groups form around trade-offs
 
-Books are far simpler than computers. Their content is consistent over time. And when arranged by a store owner that lets the shelves fade into time, the browsing experience can be extremely consistent as well. Simplicity and consistency over time can emensely help users discover value over and over again.
+small teams lack a central project manager, they
 
-But book stores aren’t easy to get to. They close often and require that you actually open books. While I wish I could open all the books, cutout the images, I would quickly burnout of energy and cash.
+Teams have widely differing opinions
 
-Browsing content online is easy. Its immediately availible, abundant, and highly marketed. But browsing content online can be far from simple. What do I do with what I like? How do I get more of the similar thing? How can I more freely explore, have some sense of where I am, and where I am going?
+New teams working with high expectations should bake their stressors into how they build product.
 
-[graphic]
+As a product designer and developer, I’ve delivered a range of assets and have become quite paticular in how they should be stacked and shipped. While I’m no expert in startups, and not a founder by any means, this has put me in a unique position to see the stressors that impact everyone on the team.
 
-I joined Arthur, in the height of the pandemic, to help people keep up with contemporary art. In the beggining, we were convinced users needed something that didn’t exsist anywhere: a personalized art feed. Because... well, we wanted a personalized feed. A mobile feed that kept us up to date about the locus of information we cared about: local galleries, remote galleries, living artists, deceased artists, and market activity. A range of content simplified by time.
+The root stressor is quite simple and well known. Its not fun to build something people don’t use. This trickles into everything, everyone does. No one can avoid it. If you’ve worked at a pre-revenue startup and you don’t relate to this, there’s an easy reason why. You’re there for the money (or for the people).
 
-[image of phone]
+It should bother everyone if your app lacks engagement. And it should bother you even more if you can’t figure out if anyone is using the feature you’ve built. So, how can teams overcome being so bothered all the time?
 
-It turns out, time can’t simplify everything. With too many types of content, interlaced and competing for attention, we had the same issue we started with. Browsing content online is complex and annoying. We seemed to fall for the age old startup addage: ‘This’ but social media!
+The best justification for not caring about user engagement is the optimism of a mission-driven product. If you aren’t measuring and discussing engagement daily, you’re likely amping up your team with optimism. “I feel great about this last release, how about you?”.
 
-Part of the reason powerhouse social media apps work is because the content and source is simple. The more types of content or sources you add, the wider the range of user expectations and more opprotunity for confusion. Hence, you probably need an activity stream.
+As a team lead, I’m surely at fault for empty optimism. But I fear my actual alliance is with the dooms-day tribe. The dooms-day tribe is a result of empty optimism.
 
-So, we wondered, what type of simple user generated content can help us here? What tool could help people tell stories about art? We started working more closely with independent curators to learn how they work. Quickly enough, I found myself prototyping a web editor that let curators use the art data we had gathered in long form.
+In larger logistically driven teams, this is not an issue. Employees do as their told regardless if it provides value to the company.
 
-[video of editor]
+Complexity budget.
 
-It allows for a wide range of structured data to be written about in-line. It also follows the form of magazine and books, where a real persons voice ties everything together. Sure, it’s not mobile and real-time. But is the start of an innovation of the current systems where editors are hired in-house and push content as SEO to fuel other services, adding further complexity for users to sift through. In our model, we hoped, the editor and content was good enough to be the service itself.
+In organically formed startups, you’re likely there for the people and already have a culture. In other startups
 
-As proud as I was of the UX, borrowed and blended from Notion, Mirror, and Zora, there was a fatal flaw. Manually gathering the data to fuel it was difficult. The curators didn’t want to do it themselves and our data team found it taxing to get exactly what the curators requested. We had arrive back at complexity. Surely, there must be something more fun.
-
-One feature I think solves for this complexity is image search. Can I find more art I love just by taking a photo of things I love?
-
-[image of visual search]
-
-Visual search enabled me to find David Dourad from a photo of my window, a place thats rather special to me. While there certainly are use cases for structured art data, the dynamic approach to finding art seems far more valuable. But we only got here as a team by first testing multiple options and prototypes.
-
-What I like most about visual search isn’t that the output approximately matches my input, its the simplicity in surfacing content. Suddenly, I feel like I have all the art books at my disposal and all I have to do is snap an image to access them.
+If you care about technology and providing value to your team, you’ll likely find yourself frustrated with how or what your building product. For many just getting into startups, there’s a tremendous reward of contributing real value to a product. I’ve worked the hardest I can work for startups and startups alone. I’ve learned, built, and launched entirely new development systems over the course of a single week––something I find much harder to do without a team pushing eachother along.

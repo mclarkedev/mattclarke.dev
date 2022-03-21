@@ -1,6 +1,7 @@
 (ns mattclarke.dev
   (:require [hawk.core :as hawk]
-            [me.raynes.fs :refer [copy]]))
+            [me.raynes.fs :refer [copy]]
+            [mattclarke.core :refer [run!!]]))
 
 (defn copy-css!
   "Copy css from resources to target"
@@ -9,10 +10,12 @@
 
 (defn run-when-changed
   "Run the live dev watcher"
-  [path]
-  (hawk/watch! [{:paths [path]
+  [paths]
+  (hawk/watch! [{:paths paths
                  :handler (fn [ctx e]
                             (println "event: " e)
-                            (copy-css!))}]))
+                            (copy-css!)
+                            ;; (run!! "_")
+                            )}]))
 
-(run-when-changed "resources/public/")
+(run-when-changed ["src/" "resources/public/"])
