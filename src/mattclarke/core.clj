@@ -4,11 +4,13 @@
             [clojure.string :as str]
             [me.raynes.fs :refer [copy-dir-into]]
             [hiccup.core :refer [html]]
+            [clojure.data.csv :as csv]
+
             [mattclarke.utils :refer [remove-ext str=> get-files encode]]
             [mattclarke.head :refer [make-page-head make-index-head]]))
 
 (def build-config
-  {:input-md-from "resources/markdown/"
+  {:input-md-from "resources/markdown/writing/"
    :input-links-from "resources/links.md"
    :input-assets-from "resources/public/"
    :output-html-to "target/public/"
@@ -41,8 +43,38 @@
       (str/replace #"\d" "")
       str/split-lines))
 
-(defn make-external-links2 []
-  (map #(html [:a {:href %} [:img {:src (str "/images/screenshots/" (encode %) ".png")}]]) (get-external-links)))
+;;  (with-open [reader (io/reader "resources/resources.csv")]
+;;     (doall
+;;      ))
+
+(defn get-csv
+  "Get csv header and body for path"
+  [path]
+  (let [csv (csv/read-csv (slurp path))
+        header (first csv)
+        body (rest csv)]   {:header header :body body}))
+
+(defn get-resources
+  "Get resources"
+  []
+  (:body (get-csv "resources/resources.csv")))
+
+;; (nth (get-resources) 0)
+
+(defn make-resource-table
+  "Fetch and make resource table from resources csv data"
+  []
+  (html
+   [:table
+    [:tbody
+     (map #(html
+            [:tr
+             [:td [:a {:href (nth % 1)} (nth % 0)]]
+             [:td [:a {:href (nth % 1)} (nth % 2)]]])
+          (get-resources))]]))
+
+;; (defn make-external-links2 []
+;;   (map #(html [:a {:href %} [:img {:src (str "/images/screenshots/" (encode %) ".png")}]]) (get-external-links)))
 
 (defn get-markdown-data
   "Returns markdown data from dir (a directory) of .md files"
@@ -71,16 +103,16 @@
 
 ;; (defn make-learning-table)
 
-(defn make-row 
+(defn make-row
   "Make a row"
   [md]
-  [:tr 
+  [:tr
   ;;  [:td (make-link-dot md)]
-   [:td (make-link md)] 
+   [:td (make-link md)]
   ;;  [:td (md :html-name)]
    ])
 
-(defn make-table 
+(defn make-table
   "Make a table"
   [data]
   (html [:table [:tbody (map make-row data)]]))
@@ -88,7 +120,7 @@
 (defn make-header
   "Make header"
   []
-  [:div.header [:a {:href "/"} "Matthew Clarke"]])
+  [:header.header [:a {:href "/"} "Matthew Clarke"]  [:a {:href "/"} "Contact"]])
 
 (defn make-menu
   "Make menu html from links from our md-data"
@@ -107,22 +139,28 @@
   (html [:div.writing
          [:h5 "Writing"]
          [:div.index (make-table md-data)]]
-        ;; [:div.resources
-        ;;  [:h5 "Resources"]
-        ;;  [:div (get-external-links)]]
-        ))
+        [:div.resources
+         [:h5 "Resources"]
+         [:div]
+         [:div (make-resource-table)]]))
 
-(defn make-index-page-data 
-  "Make index page data from our md-data" 
+(defn make-index-page-data
+  "Make index page data from our md-data"
   [md-data]
   {:html-head (make-index-head)
    :html-body (make-index-body md-data)
    :html-write-path (str (build-config :output-html-to) "index.html")})
 
-(defn make-footer
+(defn make-page-footer
   "Make index footer"
   [md-data]
-  (html [:article (make-index-body md-data)]))
+  (html [:article (make-index-body md-data)]
+        [:footer
+         [:div [:button
+                {:onclick "history.back()"} "←"]]
+         [:div ""]
+         [:div (.format (java.text.SimpleDateFormat. "© yyyy")
+                        (new java.util.Date))]]))
 
 (defn stitch-html
   "Stitch head, nav, and body into main template."
@@ -144,7 +182,7 @@
   "Writes html to dir for each page in our markdown data"
   [md-data nav]
   (doseq [md md-data]
-    (write-page! md nav (make-footer md-data))
+    (write-page! md nav (make-page-footer md-data))
     md)
   md-data)
 
@@ -158,12 +196,19 @@
      to)
     (str=> from to)))
 
+(defn make-bio
+  "Make bio"
+  []
+  (html [:div.bio
+         [:h5 "Bio"]
+         [:div [:p "Matthew Clarke is a product designer and developer born in Rochester, Michigan."]]]))
+
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
   (.mkdirs (io/file (build-config :output-html-to)))
   (print
-   {:index (write-page! (make-index-page-data md-data) (make-header) "") ;; Index only has header
+   {:index (write-page! (make-index-page-data md-data) (make-header) (make-bio)) ;; Index only has header
     :md (write-pages! md-data (make-nav md-data))
     :assets (copy-assets!)}))
 
