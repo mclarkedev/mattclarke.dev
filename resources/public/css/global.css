@@ -70,12 +70,12 @@ p {
 }
 
 a {
-  /* color: var(--text-color); */
+  color: var(--text-color);
   transition: color 0.1s ease-in-out;
 }
 
 a:visited:hover {
-  /* color: var(--text-color); */
+  color: var(--text-color);
 }
 
 a:visited {
@@ -151,7 +151,7 @@ td > a {
   padding: 16px 0px;
   margin-right: 24px;
   display: block;
-  /* color: var(--text-color); */
+  color: var(--text-color);
   font-weight: var(--link-weight);
   text-decoration: none;
 }
