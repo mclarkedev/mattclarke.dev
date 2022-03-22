@@ -2,7 +2,9 @@ Title: Clojure for Designers
 
 # Clojure for Designers
 
-It's 2022 and we're knee deep in the age of information; the age of data. Software and hackers have seeped into every discipline and sector.
+```clojure
+(build-site! (get-markdown-data)) => "Success. Site built!"
+```
 
 ## Why Clojure?
 

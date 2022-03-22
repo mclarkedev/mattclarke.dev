@@ -24,7 +24,9 @@ Browsing content online is easy. Its immediately availible, abundant, and highly
 
 I joined Arthur, in the height of the pandemic, to help people keep up with contemporary art. In the beggining, we were convinced users needed something that didn’t exsist anywhere: a personalized art feed. Because... well, we wanted a personalized feed. A mobile feed that kept us up to date about the locus of information we cared about: local galleries, remote galleries, living artists, deceased artists, and market activity. A range of content simplified by time.
 
-[image of phone]
+<div style="text-align: center;">
+    <img src="/images/arthur1.png" width="100px" style="width: 420px;" />
+</div>
 
 It turns out, time can’t simplify everything. With too many types of content, interlaced and competing for attention, we had the same issue we started with. Browsing content online is complex and annoying. We seemed to fall for the age old startup addage: ‘This’ but social media!
 

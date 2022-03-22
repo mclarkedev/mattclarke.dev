@@ -122,7 +122,7 @@
   "Make header"
   []
   [:header.header
-   [:a {:href "/"} "Matthew Clarke"]
+   [:a {:href "/"} "Matt Clarke"]
    [:a {:href "/"} "⚿"]
    [:a {:href "/"} "Contact"]])
 
@@ -137,6 +137,13 @@
   (html (make-header)
         (make-menu md-data)))
 
+(defn make-bio
+  "Make bio"
+  []
+  (html [:div.bio
+         [:h5 "☉ Bio"]
+         [:div [:p "Matt Clarke is a product designer and developer based in Brooklyn, NY. "]]]))
+
 (defn make-index-body
   "Make index page body"
   [md-data]
@@ -147,6 +154,7 @@
          [:h5 "☉ Resources"]
          [:div]
          [:div (make-resource-table)]]
+        (make-bio)
         ;; [:div.lines ]
         ))
 
@@ -157,6 +165,15 @@
    :html-body (make-index-body md-data)
    :html-write-path (str (build-config :output-html-to) "index.html")})
 
+(defn make-index-footer
+  "Nake index footer"
+  []
+  (html [:footer
+         [:div ""]
+         [:div ""]
+         [:div (.format (java.text.SimpleDateFormat. "© mm yyyy")
+                        (new java.util.Date))]]))
+
 (defn make-page-footer
   "Make index footer"
   [md-data]
@@ -165,7 +182,7 @@
          [:div [:button
                 {:onclick "history.back()"} "←"]]
          [:div ""]
-         [:div (.format (java.text.SimpleDateFormat. "© yyyy")
+         [:div (.format (java.text.SimpleDateFormat. "© mm yyyy")
                         (new java.util.Date))]]))
 
 (defn stitch-html
@@ -202,19 +219,12 @@
      to)
     (str=> from to)))
 
-(defn make-bio
-  "Make bio"
-  []
-  (html [:div.bio
-         [:h5 "☉ Bio"]
-         [:div [:p "Matthew Clarke is a product designer and developer based in Brooklyn, NY. "]]]))
-
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
   (.mkdirs (io/file (build-config :output-html-to)))
   (print
-   {:index (write-page! (make-index-page-data md-data) (make-header) (make-bio)) ;; Index only has header
+   {:index (write-page! (make-index-page-data md-data) (make-header) (make-index-footer)) ;; Index only has header
     :md (write-pages! md-data (make-nav md-data))
     :assets (copy-assets!)}))
 

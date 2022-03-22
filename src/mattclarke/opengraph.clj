@@ -27,10 +27,10 @@
   [coll]
   (map get-og:image coll))
 
-(get-og:images ["https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup", 
-                "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup"])
+;; (get-og:images ["https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup", 
+;;                 "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup"])
 
-(get-og:image "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup")
+;; (get-og:image "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup")
 
 (def url "http://127.0.0.1:8000/")
 
@@ -56,11 +56,21 @@
 
 (comment
   (-> url
-      get-all-links
+      fetch-url
+      (html/select [:a])
+      flatten
+      filter-hrefs
+      filter-external-links
+      distinct
       get-og:images)
   )
 
-;; (comment 
-;;   (-> url
-;;     get-all-links
-;;     build-screenshots!))
+  (-> url
+      get-all-links
+      get-og:images)
+  (print "end")
+
+(comment 
+  (-> url
+    get-all-links
+    build-screenshots!))

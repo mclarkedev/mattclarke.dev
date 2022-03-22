@@ -10,13 +10,13 @@
   --border: 1px solid black;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #15141a;
     --text-color: rgb(255, 255, 255);
     --border: 1px solid rgb(255, 255, 255);
   }
-} */
+}
 
 * {
   font-size: 14px;
@@ -65,6 +65,7 @@ h1 {
 pre {
   padding: 24px;
   background-color: rgb(235, 235, 235);
+  border-radius: 12px;
 }
 
 article {
