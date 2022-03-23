@@ -3,7 +3,7 @@
   --text-color: black;
   --link-weight: 600;
   --heading-weight: 700;
-  --main-width: 720px;
+  --main-width: 620px;
   --line-height: 166%;
   --padding: 24px;
   --padding-2: 48px;
@@ -66,6 +66,7 @@ pre {
   padding: 24px;
   background-color: rgb(235, 235, 235);
   border-radius: 12px;
+  color: black;
 }
 
 article {
@@ -76,11 +77,10 @@ h5 {
   font-weight: var(--heading-weight);
   letter-spacing: 0px;
   letter-spacing: 0px;
-  transform: scale3d(30 3 4);
 }
 
 p {
-  font-size: large;
+  font-size: 18px;
   line-height: var(--line-height);
 }
 
@@ -111,12 +111,11 @@ a:visited {
   background-color: rgb(168, 168, 168);
 }
 
-.header {
+/* .header {
   position: static;
-  /* border-bottom: 1px solid black; */
   background-color: var(--bg-color);
   padding: var(--padding);
-}
+} */
 
 .menu {
   position: fixed;
@@ -127,7 +126,7 @@ a:visited {
   padding: var(--padding);
 }
 
-.header > a {
+header > a {
   color: var(--text-color); /* Disable :visited in header  */
   font-weight: var(--heading-weight);
   text-decoration: none;
@@ -169,8 +168,6 @@ td > a {
   color: var(--text-color);
   font-weight: var(--link-weight);
   text-decoration: none;
-
-  /* font-size: 18px; */
 }
 
 .resources > div > p {
@@ -194,14 +191,16 @@ td > a {
 }
 
 header {
+  position: static;
+  background-color: var(--bg-color);
+  padding: var(--padding);
+
   position: fixed;
   display: flex;
   top: 0;
   left: 0;
   right: 0;
   justify-content: center;
-  /* background-color: var(--bg-color); */
-  /* background-color: var(--bg-color); */
 }
 
 header > * {
@@ -249,20 +248,13 @@ footer > div:nth-child(3) {
 }
 
 button {
-  background-color: none;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   outline: none;
   border: none;
+  font-weight: 700;
+  font-size: 21px;
 }
-
-/* .lines {
-  position: absolute;
-  top: 14%;
-  left: 50%;
-  bottom: 50%;
-  right: 4%;
-
-  z-index: -9;
-} */
 
 /* Large Tablet + Desktops */
 @media (min-width: 770px) {
@@ -273,23 +265,16 @@ button {
   }
 
   footer {
-    /* position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0; */
-
     position: static;
     background-color: var(--bg-color);
   }
 
   footer > div {
     padding: 0px;
-    /* padding-right: none; */
-    /* padding-top: var(--padding); */
   }
 
   /* Transparent Fixed header */
-  .header {
+  header {
     position: fixed;
     top: 0;
     left: 0;
@@ -297,11 +282,6 @@ button {
     border-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
   }
-
-  /* Article fixed left */
-  /* article {
-    margin-left: 220px;
-  } */
 }
 
 /* Vendor */

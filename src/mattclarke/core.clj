@@ -10,7 +10,7 @@
             [mattclarke.head :refer [make-page-head make-index-head]]))
 
 (def build-config
-  {:input-md-from "resources/markdown/writing/"
+  {:input-md-from "resources/markdown/published/"
    :input-links-from "resources/links.md"
    :input-assets-from "resources/public/"
    :output-html-to "target/public/"
@@ -165,14 +165,16 @@
    :html-body (make-index-body md-data)
    :html-write-path (str (build-config :output-html-to) "index.html")})
 
+(def today (.format (java.text.SimpleDateFormat. "© MM dd yyyy")
+                    (new java.util.Date)))
+
 (defn make-index-footer
   "Nake index footer"
   []
   (html [:footer
          [:div ""]
          [:div ""]
-         [:div (.format (java.text.SimpleDateFormat. "© mm yyyy")
-                        (new java.util.Date))]]))
+         [:div today]]))
 
 (defn make-page-footer
   "Make index footer"
@@ -182,8 +184,7 @@
          [:div [:button
                 {:onclick "history.back()"} "←"]]
          [:div ""]
-         [:div (.format (java.text.SimpleDateFormat. "© mm yyyy")
-                        (new java.util.Date))]]))
+         [:div today]]))
 
 (defn stitch-html
   "Stitch head, nav, and body into main template."
