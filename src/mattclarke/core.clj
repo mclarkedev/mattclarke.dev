@@ -1,12 +1,12 @@
 (ns mattclarke.core
   (:require [markdown.core :refer [md-to-html-string-with-meta]]
             [clojure.java.io :as io]
-            [clojure.string :as str]
+            ;; [clojure.string :as str]
             [me.raynes.fs :refer [copy-dir-into]]
             [hiccup.core :refer [html]]
             [clojure.data.csv :as csv]
 
-            [mattclarke.utils :refer [remove-ext str=> get-files encode]]
+            [mattclarke.utils :refer [remove-ext str=> get-files]]
             [mattclarke.head :refer [make-page-head make-index-head]]))
 
 (def build-config
@@ -34,19 +34,6 @@
      :html-body (html [:article (md-with-meta :html)])
      :html-head (make-page-head md-meta)}))
 
-;; (defn make-external-links []
-;;   (:html (md-to-html-string-with-meta (slurp (str (io/file (build-config :input-links-from)))))))
-
-;; (defn get-external-links []
-;;   (-> "./resources/links.txt"
-;;       slurp
-;;       (str/replace #"\d" "")
-;;       str/split-lines))
-
-;;  (with-open [reader (io/reader "resources/resources.csv")]
-;;     (doall
-;;      ))
-
 (defn get-csv
   "Get csv header and body for path"
   [path]
@@ -59,7 +46,10 @@
   []
   (:body (get-csv "resources/resources.csv")))
 
-;; (nth (get-resources) 0)
+(defn get-markdown-data
+  "Returns markdown data from dir (a directory) of .md files"
+  []
+  (map make-markdown-data (get-files (build-config :input-md-from))))
 
 (defn make-resource-table
   "Fetch and make resource table from resources csv data"
@@ -74,17 +64,6 @@
              [:td [:a {:href (nth % 1) :target "_blank"} (nth % 2)]]])
           (get-resources))]]))
 
-;; (defn make-external-links2 []
-;;   (map #(html [:a {:href %} [:img {:src (str "/images/screenshots/" (encode %) ".png")}]]) (get-external-links)))
-
-(defn get-markdown-data
-  "Returns markdown data from dir (a directory) of .md files"
-  []
-  (map make-markdown-data (get-files (build-config :input-md-from))))
-
-;; (def make-tooltip [:span [:img {:src "https://www.scriptol.com/images/apache.png" :width "1s00px"}]
-;;                    [:h3 "Link"]])
-
 (defn make-link
   "Make a link from a md data item"
   [md]
@@ -97,21 +76,11 @@
   [md-data]
   (apply str (map make-link md-data)))
 
-;; (defn make-link-dot
-;;   "Make dot"
-;;   [md]
-;;   (html [:a.link.dot {:href (md :html-name)}]))
-
-;; (defn make-learning-table)
-
 (defn make-row
   "Make a row"
   [md]
-  [:tr
-  ;;  [:td (make-link-dot md)]
-   [:td (make-link md)]
-  ;;  [:td (md :html-name)]
-   ])
+  (html [:tr
+         [:td (make-link md)]]))
 
 (defn make-table
   "Make a table"
@@ -129,7 +98,7 @@
 (defn make-menu
   "Make menu html from links from our md-data"
   [md-data]
-  [:div.menu (make-links md-data)])
+  (html [:div.menu (make-links md-data)]))
 
 (defn make-nav
   "Build navigation from md-data"
@@ -154,9 +123,7 @@
          [:h5 "☉ Resources"]
          [:div]
          [:div (make-resource-table)]]
-        (make-bio)
-        ;; [:div.lines ]
-        ))
+        (make-bio)))
 
 (defn make-index-page-data
   "Make index page data from our md-data"
