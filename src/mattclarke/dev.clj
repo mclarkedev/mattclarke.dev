@@ -3,6 +3,9 @@
             [me.raynes.fs :refer [copy]]
             [mattclarke.core :refer [run!!]]))
 
+(def dev-config
+  {:paths ["src/mattclarke" "resources"]})
+
 (defn copy-css!
   "Copy css from resources to target"
   []
@@ -18,4 +21,4 @@
                             ;; (run!! "_")
                             )}]))
 
-(run-when-changed ["src/" "resources/public/"])
+(run-when-changed (dev-config :paths))

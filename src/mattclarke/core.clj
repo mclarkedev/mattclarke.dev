@@ -106,24 +106,26 @@
   (html (make-header)
         (make-menu md-data)))
 
-(defn make-bio
-  "Make bio"
-  []
-  (html [:div.bio
-         [:h5 "☉ Bio"]
-         [:div [:p "Matt Clarke is a product designer and developer based in Brooklyn, NY. "]]]))
-
 (defn make-index-body
   "Make index page body"
   [md-data]
-  (html [:div.writing
-         [:h5 "☉ Writing"]
-         [:div.index (make-table md-data)]]
-        [:div.resources
-         [:h5 "☉ Resources"]
-         [:div]
-         [:div (make-resource-table)]]
-        (make-bio)))
+  (html
+   [:div.writing
+    [:h5 "☉ Case Studies"]  
+    [:div.index (make-table md-data)]]
+   [:div.resources
+    [:h5 "☉ Resources"]
+    [:div]
+    [:div (make-resource-table)]]
+   [:div.bio
+    [:h5 "☉ Bio"]
+    [:div [:p "Matt Clarke is a product designer and developer based in Brooklyn, NY. "]]]
+   [:div.writing
+    [:h5 "☉ Currently"]
+    [:div [:p "Building Uni, a character lookup tool for designers and developers."]]]
+   [:div
+    [:h5 "☉ Previously"]
+    [:div [:p "Arthur, Datavore Labs, Splashlight, Gagosian Gallery, Vice Media, New Museum of Contemporary Art"]]]))
 
 (defn make-index-page-data
   "Make index page data from our md-data"

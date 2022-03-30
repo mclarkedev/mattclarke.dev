@@ -6,6 +6,11 @@
 .clj-kondo
 .lsp
 
+# Output Target
 target
+
 # Local Netlify folder
 .netlify
+
+# Misc local media
+resources/_media

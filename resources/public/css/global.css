@@ -3,28 +3,23 @@
   --text-color: black;
   --link-weight: 600;
   --heading-weight: 700;
-  --main-width: 620px;
+  --main-width: 540px;
   --line-height: 166%;
   --padding: 24px;
   --padding-2: 48px;
   --border: 1px solid black;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #15141a;
     --text-color: rgb(255, 255, 255);
     --border: 1px solid rgb(255, 255, 255);
   }
-}
+} */
 
 * {
   font-size: 14px;
-}
-
-article > * {
-  font-size: 16px;
-  line-height: 165%;
 }
 
 body {
@@ -40,8 +35,24 @@ main {
 }
 
 article {
+  margin: 44vh 0 0 0;
+  /* margin: 44vh auto 0 auto; */
+}
+
+article > * {
+  font-size: 16px;
+  line-height: 165%;
+
   max-width: var(--main-width);
-  margin: auto;
+  margin: 0 auto 0 auto;
+}
+
+article > p > video {
+  /* transform: translate(-14vw);
+  width: 900px; */
+  margin: 24px auto 24px auto;
+  border-radius: 12px;
+  border: 2px solid black;
 }
 
 img {
@@ -67,10 +78,6 @@ pre {
   background-color: rgb(235, 235, 235);
   border-radius: 12px;
   color: black;
-}
-
-article {
-  margin-top: 44vh;
 }
 
 h5 {
@@ -257,7 +264,7 @@ button {
 }
 
 /* Large Tablet + Desktops */
-@media (min-width: 770px) {
+@media (min-width: 1100px) {
   /* Show menu */
   .menu {
     display: block;
@@ -281,6 +288,12 @@ button {
     right: 0;
     border-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
+  }
+
+  /* Video full width */
+  article > p > video {
+    transform: translate(-186px);
+    width: 900px;
   }
 }
 
