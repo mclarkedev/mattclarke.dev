@@ -35,3 +35,18 @@
 
 (comment
   (build-screenshots! urls))
+
+;; Media Table ------------------------------------------------------------------------
+
+;; (defn get-article-html "Get all article html text" []
+;;   )
+
+(comment
+  ;;
+  ;; (-> get-html
+  ;;     get-media-from-html
+  ;;     make-media-table
+  ;;     append-el)
+  ;;
+  ;; (append-el (make-media-table (get-media-from-html (get-html))))
+  )
