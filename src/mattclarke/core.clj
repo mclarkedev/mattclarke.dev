@@ -21,7 +21,6 @@
   [src]
   (html [:div.video
          [:video {:width "100%"
-                  :autoplay ""
                   :loop ""
                   :preload ""
                   :class "video"}
@@ -226,7 +225,7 @@
   "Make index footer"
   [md-data]
   (html [:article (make-index-body md-data)]
-        [:footer
+        [:footer 
          [:div [:button
                 {:onclick "history.back()"} "←"]]
          [:div ""]

@@ -18,8 +18,6 @@ So, as a design team we asked, how might we describe the benefits of Splashlight
 
 > New website navigation that promotes Splashlight as 'Platform' first.
 
-![A website prototype.](/images/spl2.png)
-
 > Use user-centered verbage with clear value propositions.
 
 ![A website prototype.](/images/spl3.png)

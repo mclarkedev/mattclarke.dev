@@ -17,8 +17,8 @@
   (hawk/watch! [{:paths paths
                  :handler (fn [ctx e]
                             (println "event: " e)
-                            (copy-css!)
-                            ;; (run!! "_")
+                            ;; (copy-css!)
+                            (run!! {:args ""})
                             )}]))
 
 (run-when-changed (dev-config :paths))
