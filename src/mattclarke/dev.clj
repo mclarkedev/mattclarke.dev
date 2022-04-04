@@ -18,7 +18,7 @@
                  :handler (fn [ctx e]
                             (println "event: " e)
                             ;; (copy-css!)
-                            (run!! {:args ""})
+                            (time (run!! {:args ""}))
                             )}]))
 
 (run-when-changed (dev-config :paths))

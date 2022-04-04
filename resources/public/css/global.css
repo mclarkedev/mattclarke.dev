@@ -295,11 +295,21 @@ h2 {
 }
 
 /* All media in media gallery must be small, regardless of in-line styles */
+.media > .media-section > *,
 .media > * {
   height: 100px !important;
   width: 100px !important;
   margin-right: 12px !important;
   object-fit: contain;
+}
+
+.media-section {
+  display: inline;
+  opacity: 100%;
+}
+
+.media-section:hover {
+  opacity: 70%;
 }
 
 blockquote {
@@ -359,7 +369,7 @@ blockquote > p {
     width: 900px;
   }
 
-  img {
+  article > p > img {
     transform: translate(-100px);
     width: 740px;
   }

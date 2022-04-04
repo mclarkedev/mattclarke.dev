@@ -87,12 +87,14 @@
   (let [basename (remove-ext (.getName f))
         path (str f)
         html-name (str basename ".html")
-        md-with-meta (md-to-html-string-with-meta (slurp path) :custom-transformers [md-media-transformer])
+        md-with-meta (md-to-html-string-with-meta (slurp path)
+                                                  :custom-transformers
+                                                  [md-media-transformer])
         md-meta (md-with-meta :metadata)
         md-html (md-with-meta :html)
         md-imgs (enlive-html/select (enlive-html/html-snippet md-html) [:img])
         md-videos (enlive-html/select (enlive-html/html-snippet md-html) [:video])
-        media-hiccup (nodes-to-hiccup (concat md-videos md-imgs))]
+        media-hiccup (nodes-to-hiccup (concat md-imgs md-videos))]
     {:md-name (.getName f)
      :basename basename
      :title (first (md-meta :title))
@@ -135,10 +137,17 @@
              [:td [:a {:href (nth % 1) :target "_blank"} (nth % 2)]]])
           (get-resources))]]))
 
+(defn make-media-section
+  "Make media section form :media-hiccup md-data"
+  [md]
+  [:a.media-section 
+   {:href (md :html-name)}
+   (md :media-hiccup)])
+
 (defn make-media-table
   "Make media gallery from :media-hiccup md-data"
   [md-media]
-  (html [:div.media (map #(% :media-hiccup) md-media)]))
+  (html [:div.media (map make-media-section md-media)]))
 
 (defn make-link
   "Make a link from a md data item"
