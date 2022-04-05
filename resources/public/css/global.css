@@ -64,8 +64,8 @@ article > * {
 
 article > p > img {
   display: block;
-  margin: 24px auto -24px auto; /* HACK: negative margin */
-  border-radius: 12px 12px 0px 0px;
+  margin: 24px auto 24px auto; /* HACK: negative margin */
+  border-radius: 12px 12px;
 
   max-height: 80vh;
   object-fit: contain;
