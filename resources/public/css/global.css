@@ -154,6 +154,7 @@ a:visited {
   left: 0;
   top: 30%;
   padding: var(--padding);
+  text-align: right;
 }
 
 header > a {
