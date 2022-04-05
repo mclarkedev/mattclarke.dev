@@ -2,12 +2,13 @@
   (:require [markdown.core :refer [md-to-html-string-with-meta]]
             [clojure.java.io :as io]
             [clojure.string :as str]
+            [clojure.pprint :as pp]
             [me.raynes.fs :refer [copy-dir-into]]
             [hiccup.core :refer [html]]
             [net.cgrand.enlive-html :as enlive-html]
             [clojure.data.csv :as csv]
 
-            [mattclarke.utils :refer [remove-ext str=> get-files]]
+            [mattclarke.utils :refer [remove-ext str=> get-files get-file-name]]
             [mattclarke.head :refer [make-page-head make-index-head]]))
 
 (def host-config
@@ -157,7 +158,7 @@
   "Make menu html from links from our md-data"
   [md-data]
   (html [:div.menu
-         [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Feature Studies"]
+         [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Product Studies"]
          (make-links md-data)]))
 
 (defn make-nav
@@ -174,7 +175,7 @@
     [:h5 "☉ Media Gallery"]
     [:div.index (make-media-table md-data)]]
    [:div
-    [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Feature Studies"]
+    [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Product Studies"]
     [:div.index (make-table md-data)]]
    [:div
     [:h5 "☉ Links and Resources"]
@@ -249,41 +250,66 @@
      to)
     (str=> from to)))
 
+(defn make-index-page
+  ""
+  [md-data]
+  (write-page! (make-index-page-data md-data) (make-header) (make-index-footer))) ;; Index only has header
+
+(defn make-md-pages
+  ""
+  [md-data]
+  (write-pages! md-data (make-nav md-data)))
+
+(defn make-pages!
+  ""
+  [md-data]
+  (let [index-page (make-index-page md-data)
+        md-pages (make-md-pages md-data)]
+    (conj md-pages index-page)))
+
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
   (.mkdirs (io/file (build-config :output-html-to)))
-   {:index (write-page! (make-index-page-data md-data) (make-header) (make-index-footer)) ;; Index only has header
-    :md (write-pages! md-data (make-nav md-data))
+   {:index (make-index-page md-data)
+    :md (make-md-pages md-data)
     :assets (copy-assets!)})
 
-(defn analyze-build
+(defn analyze-pages
   "Analyze the build output and return metrics"
-  [build-output]
+  [pages]
   (println "--------------- Build Output -------------------")
   (println today)
   (println "")
-  (println (count (build-output :md)) "Pages built from markdown")
+  (println (count pages) "pages built")
   (println "")
-  (run! #(println (str (host-config :dev-url) "/" (% :html-name))) (build-output :md))
+  (run! #(println (str (host-config :dev-url) "/" (get-file-name (% :html-write-path)))) pages)
   (println "")
   (println "------------------------------------------------")
-  "Complete")
+  (str (count pages) " pages built"))
+
+(defn analyze-assets
+  ""
+  [asset-output]
+  (println "Assets copied: " asset-output))
 
 (defn build-md!
   "Build html to target from markdown"
   []
-  (let [md-data (get-markdown-data)]
-    (analyze-build {:md (write-pages! md-data (make-nav md-data))})))
+  (analyze-pages (make-pages! (get-markdown-data))))
+
+(defn build-assets!
+  ""
+  []
+  (analyze-assets (copy-assets!)))
 
 (defn run!!
   "Run our build process"
   [_]
-  (-> (get-markdown-data)
-      build-site!
-      analyze-build)
-  "")
+  (build-assets!)
+  (build-md!))
 
 (comment
   (println (get-markdown-data))
-  (time (run!! {:args ""})))
+  (time (run!! {:args ""})
+        ))

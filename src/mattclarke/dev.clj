@@ -21,7 +21,7 @@
                  :handler (fn [_ e]
                             (let [path (str (e :file))
                                   ext (file-extension path)]
-                              (println path)
+                              ;; (println path)
                               (case ext
                                 ".css" (copy-css!)
                                 ".md" (time (build-md!))

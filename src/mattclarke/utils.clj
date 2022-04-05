@@ -15,5 +15,10 @@
 (defn encode [to-encode]
   (String. (.encode (Base64/getEncoder) (.getBytes to-encode))))
 
+(defn get-file-name 
+  "Get the end of the path"
+  [path]
+  (-> path java.io.File. .getName))
+
 ;; (defn decode [to-decode]
 ;;   (String. (.decode (Base64/getDecoder) to-decode)))
