@@ -249,6 +249,12 @@
      to)
     (str=> from to)))
 
+(defn build-md!
+  "Build html to target from markdown"
+  []
+  (let [md-data (get-markdown-data)]
+    (write-pages! md-data (make-nav md-data))))
+
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
