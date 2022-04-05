@@ -10,6 +10,9 @@
             [mattclarke.utils :refer [remove-ext str=> get-files]]
             [mattclarke.head :refer [make-page-head make-index-head]]))
 
+(def host-config
+  {:dev-url "http://127.0.0.1:8000"})
+
 (def build-config
   {:input-md-from "resources/markdown/studies/"
    :input-assets-from "resources/public/"
@@ -27,7 +30,6 @@
           [:source {:src src :type "video/mp4"}]]]))
 
 (defn md-media-transformer [text state]
-  (println text)
   (let [img-nodes (enlive-html/select-nodes* (enlive-html/html-snippet text) [:img])
         img? (not-empty img-nodes)
         img-node (first img-nodes)
@@ -57,7 +59,6 @@
 (defn make-markdown-data
   "Return helper data for f (a markdown Java File) to be exported as html."
   [f]
-  (print f)
   (let [basename (remove-ext (.getName f))
         path (str f)
         html-name (str basename ".html")
@@ -228,14 +229,14 @@
   "Writes to :html-write-path and joins page head, body, and nav"
   [md nav footer]
   (let [html (stitch-html (md :html-head) nav (md :html-body) footer)]
-    (spit (md :html-write-path) html) html))
+    (spit (md :html-write-path) html) html)
+  md)
 
 (defn write-pages!
   "Writes html to dir for each page in our markdown data"
   [md-data nav]
   (doseq [md md-data]
-    (write-page! md nav (make-page-footer md-data))
-    md)
+    (write-page! md nav (make-page-footer md-data)))
   md-data)
 
 (defn copy-assets!
@@ -252,15 +253,30 @@
   "Builds the site from our transformed md-data"
   [md-data]
   (.mkdirs (io/file (build-config :output-html-to)))
-  (print
    {:index (write-page! (make-index-page-data md-data) (make-header) (make-index-footer)) ;; Index only has header
     :md (write-pages! md-data (make-nav md-data))
-    :assets (copy-assets!)}))
+    :assets (copy-assets!)})
+
+(defn analyze-build
+  "Analyze the build output and return metrics"
+  [build-output]
+  (println " -------------- Build Output -------------------")
+  (println today)
+  (println "")
+  (println (count (build-output :md)) "Pages built from markdown")
+  (println "")
+  (run! #(println (str (host-config :dev-url) "/" (% :html-name))) (build-output :md))
+  (println "")
+  (println " -----------------------------------------------")
+  "Complete")
 
 (defn run!!
   "Run our build process"
   [_]
-  (time (build-site! (get-markdown-data))))
+  (-> (get-markdown-data)
+      build-site!
+      analyze-build)
+  "")
 
 (comment
   (println (get-markdown-data))
