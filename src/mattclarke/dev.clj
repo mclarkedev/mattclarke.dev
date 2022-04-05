@@ -1,7 +1,7 @@
 (ns mattclarke.dev
   (:require [hawk.core :as hawk]
             [me.raynes.fs :refer [copy]]
-            [mattclarke.core :refer [run!! build-md!]]))
+            [mattclarke.core :refer [build-md!]]))
 
 (def dev-config
   {:paths ["src/mattclarke" "resources"]})

@@ -249,12 +249,6 @@
      to)
     (str=> from to)))
 
-(defn build-md!
-  "Build html to target from markdown"
-  []
-  (let [md-data (get-markdown-data)]
-    (write-pages! md-data (make-nav md-data))))
-
 (defn build-site!
   "Builds the site from our transformed md-data"
   [md-data]
@@ -266,15 +260,21 @@
 (defn analyze-build
   "Analyze the build output and return metrics"
   [build-output]
-  (println " -------------- Build Output -------------------")
+  (println "--------------- Build Output -------------------")
   (println today)
   (println "")
   (println (count (build-output :md)) "Pages built from markdown")
   (println "")
   (run! #(println (str (host-config :dev-url) "/" (% :html-name))) (build-output :md))
   (println "")
-  (println " -----------------------------------------------")
+  (println "------------------------------------------------")
   "Complete")
+
+(defn build-md!
+  "Build html to target from markdown"
+  []
+  (let [md-data (get-markdown-data)]
+    (analyze-build {:md (write-pages! md-data (make-nav md-data))})))
 
 (defn run!!
   "Run our build process"
