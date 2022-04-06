@@ -21,7 +21,7 @@
    :output-assets-to "target/public/"})
 
 (defn make-video
-  "Make an in-line mp4 video"
+  "Make an in-line mp4 video from src link"
   [src]
   (html [:div.video
          [:video {:width "100%"
@@ -162,11 +162,6 @@
          [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Product Studies"]
          (make-links md-data)]))
 
-(defn make-nav
-  "Build navigation from md-data"
-  [md-data]
-  (html (make-header)
-        (make-menu md-data)))
 
 (defn make-index-body
   "Make index page body"
@@ -246,12 +241,6 @@
     (spit (md :html-write-path) html) html)
   md)
 
-(defn write-pages!
-  "Writes html to dir for each page in our markdown data"
-  [md-data nav]
-  (doseq [md md-data]
-    (write-page! md nav (make-page-footer md-data))) ;; Every page gets a footer
-  md-data)
 
 (defn copy-assets!
   "Copy public assets from resource to target"
@@ -268,10 +257,6 @@
   [md-data]
   (write-page! (make-index-page-data md-data) (make-header) (make-index-footer))) ;; Index only has header
 
-(defn make-md-pages
-  ""
-  [md-data]
-  (write-pages! md-data (make-nav md-data)))
 
 (defn make-md-pages2
   "Make a list of {:path :html} data from our markdown data, to be written out"
@@ -295,10 +280,6 @@
       make-md-pages2
       write-pages!2))
 
-;; (defn write-pages-simple!
-;;   ""
-;;   [pages]
-;;   (spit path html) html)
 
 (defn make-pages!
   ""
@@ -325,10 +306,10 @@
   [asset-output]
   (println "Assets copied: " asset-output))
 
-(defn build-md!
-  "Build html to target from markdown"
-  []
-  (analyze-pages (make-pages! (get-markdown-data))))
+;; (defn build-md!
+;;   "Build html to target from markdown"
+;;   []
+;;   (analyze-pages (make-pages! (get-markdown-data))))
 
 (defn build-assets!
   ""
@@ -339,6 +320,7 @@
   "Run our build process"
   [_]
   (build-assets!)
+  (make-index-page (get-markdown-data))
   (-> (get-markdown-data)
       make-md-pages2
       write-pages!2)

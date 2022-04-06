@@ -137,7 +137,7 @@ a:visited:hover {
   width: fit-content;
 }
 
-main .centered {
+main.centered {
   margin-top: 15vh;
 }
 
