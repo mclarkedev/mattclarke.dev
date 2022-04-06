@@ -117,7 +117,7 @@
 (defn make-media-section
   "Make media section form :media-hiccup md-data"
   [md]
-  [:a.media-section 
+  [:a.media-section
    {:href (md :html-name)}
    (md :media-hiccup)])
 
@@ -210,7 +210,7 @@
   "Make index footer"
   [md-data]
   (html [:article (make-index-body md-data)]
-        [:footer 
+        [:footer
          [:div [:button
                 {:onclick "history.back()"} "←"]]
          [:div ""]
@@ -226,6 +226,19 @@
           [:main body
            [:div footer]]]]))
 
+(defn template-md
+  "Template markdown article using c{:head :header :menu :body :footer}"
+  [c]
+  (html [:html
+         (c :head)
+         [:body
+          (c :header)
+          [:main.centered ;; Centered
+           [:div
+            (c :menu) ;; Fixed
+            (c :body)]
+           (c :footer)]]]))
+
 (defn write-page!
   "Writes to :html-write-path and joins page head, body, and nav"
   [md nav footer]
@@ -237,7 +250,7 @@
   "Writes html to dir for each page in our markdown data"
   [md-data nav]
   (doseq [md md-data]
-    (write-page! md nav (make-page-footer md-data)))
+    (write-page! md nav (make-page-footer md-data))) ;; Every page gets a footer
   md-data)
 
 (defn copy-assets!
@@ -260,20 +273,39 @@
   [md-data]
   (write-pages! md-data (make-nav md-data)))
 
+(defn make-md-pages2
+  "Make a list of {:path :html} data from our markdown data, to be written out"
+  [md-data]
+  (map #(identity {:path (% :html-write-path)
+                   :html (template-md {:head (% :html-head)
+                                       :header (make-header)
+                                       :menu (make-menu md-data)
+                                       :body (% :html-body)
+                                       :footer (make-page-footer md-data)})}) md-data))
+
+(defn write-pages!2
+  "Writes page{:html} => page{:path} for pages"
+  [pages]
+  (run! #(spit (% :path) (% :html)) pages)
+  pages)
+
+(comment
+  (template-md {:head ""})
+  (-> (get-markdown-data)
+      make-md-pages2
+      write-pages!2))
+
+;; (defn write-pages-simple!
+;;   ""
+;;   [pages]
+;;   (spit path html) html)
+
 (defn make-pages!
   ""
   [md-data]
   (let [index-page (make-index-page md-data)
-        md-pages (make-md-pages md-data)]
+        md-pages (write-pages!2 (make-md-pages2 md-data))]
     (conj md-pages index-page)))
-
-(defn build-site!
-  "Builds the site from our transformed md-data"
-  [md-data]
-  (.mkdirs (io/file (build-config :output-html-to)))
-   {:index (make-index-page md-data)
-    :md (make-md-pages md-data)
-    :assets (copy-assets!)})
 
 (defn analyze-pages
   "Analyze the build output and return metrics"
@@ -307,10 +339,13 @@
   "Run our build process"
   [_]
   (build-assets!)
-  (build-md!))
+  (-> (get-markdown-data)
+      make-md-pages2
+      write-pages!2)
+  ;; (build-md!)
+  )
 
 (comment
   (println (get-markdown-data))
   (inspector/inspect-tree (get-markdown-data))
-  (time (run!! {:args ""})
-        ))
+  (time (run!! {:args ""})))
