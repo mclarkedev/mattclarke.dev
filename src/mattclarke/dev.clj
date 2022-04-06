@@ -11,7 +11,7 @@
   []
   (copy "resources/public/css/global.css" "target/public/css/global.css"))
 
-(defn file-extension [path]
+(defn get-file-extension [path]
   (second (re-find #"(\.[a-zA-Z0-9]+)$" path)))
 
 (defn run-when-changed
@@ -20,7 +20,7 @@
   (hawk/watch! [{:paths paths
                  :handler (fn [_ e]
                             (let [path (str (e :file))
-                                  ext (file-extension path)]
+                                  ext (get-file-extension path)]
                               ;; (println path)
                               (case ext
                                 ".css" (copy-css!)

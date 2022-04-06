@@ -2,13 +2,13 @@
   (:require [markdown.core :refer [md-to-html-string-with-meta]]
             [clojure.java.io :as io]
             [clojure.string :as str]
-            [clojure.pprint :as pp]
             [me.raynes.fs :refer [copy-dir-into]]
             [hiccup.core :refer [html]]
             [net.cgrand.enlive-html :as enlive-html]
             [clojure.data.csv :as csv]
+            [clojure.inspector :as inspector]
 
-            [mattclarke.utils :refer [remove-ext str=> get-files get-file-name]]
+            [mattclarke.utils :refer [remove-ext str=> get-files get-file-name get-file-extension]]
             [mattclarke.head :refer [make-page-head make-index-head]]))
 
 (def host-config
@@ -25,17 +25,18 @@
   [src]
   (html [:div.video
          [:video {:width "100%"
+                  :autoplay "true"
                   :loop ""
                   :preload ""
                   :class "video"}
-          [:source {:src src :type "video/mp4"}]]]))
+          [:source {:src src :type (str "video/mp4")}]]]))
 
 (defn md-media-transformer [text state]
   (let [img-nodes (enlive-html/select-nodes* (enlive-html/html-snippet text) [:img])
         img? (not-empty img-nodes)
         img-node (first img-nodes)
         img-src (if img? ((img-node :attrs) :src) "nil")
-        video? (str/includes? img-src ".mp4")]
+        video? (or (str/includes? img-src ".mp4") (str/includes? img-src "mov"))]
     (if video?
       [(make-video img-src) state]
       [text state])))
@@ -78,7 +79,7 @@
      :html-write-path (str (build-config :output-html-to) html-name)
      :path path
      :html-body (html [:article
-                       [:div.media media-hiccup]
+                      ;;  [:div.media media-hiccup] ;; Media
                        md-html])
      :html-head (make-page-head md-meta)
      :media-hiccup media-hiccup}))
@@ -184,8 +185,7 @@
     [:h5 "☉ Bio"]
     [:div {:style "max-width: 550px"}
      [:span "Matthew Clarke is a product designer and developer based in Brooklyn, NY. "]
-     [:span "Currently, he's building a character lookup tool for designers and developers, called Uni. "]
-     [:span "Previously, worked on digital products at Arthur, Datavore Labs, and Splashlight, and in media and the arts at Gagosian Gallery, Vice Media, and New Museum of Contemporary Art"]]]))
+     [:span "He's worked on digital products at Arthur, Datavore Labs, and Splashlight, and in media at Gagosian Gallery, Vice Media, and New Museum of Contemporary Art"]]]))
 
 (defn make-index-page-data
   "Make index page data from our md-data"
@@ -311,5 +311,6 @@
 
 (comment
   (println (get-markdown-data))
+  (inspector/inspect-tree (get-markdown-data))
   (time (run!! {:args ""})
         ))

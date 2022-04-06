@@ -20,5 +20,8 @@
   [path]
   (-> path java.io.File. .getName))
 
+(defn get-file-extension [path]
+  (second (re-find #"(\.[a-zA-Z0-9]+)$" path)))
+
 ;; (defn decode [to-decode]
 ;;   (String. (.decode (Base64/getDecoder) to-decode)))
