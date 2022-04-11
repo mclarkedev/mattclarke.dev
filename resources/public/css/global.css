@@ -12,7 +12,7 @@
   --border: 1px solid black;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #15141a;
     --blockquote-bg: rgb(49, 53, 56);
@@ -20,7 +20,7 @@
     --blockquote-text-color: rgb(199, 202, 205);
     --border: 1px solid rgb(255, 255, 255);
   }
-} */
+}
 
 a {
   font-size: 14px;
