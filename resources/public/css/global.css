@@ -12,7 +12,7 @@
   --border: 1px solid black;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #15141a;
     --blockquote-bg: rgb(49, 53, 56);
@@ -20,10 +20,24 @@
     --blockquote-text-color: rgb(199, 202, 205);
     --border: 1px solid rgb(255, 255, 255);
   }
-}
+} */
 
 a {
   font-size: 14px;
+  color: var(--text-color);
+  transition: color 0.1s ease-in-out;
+}
+
+p > a {
+  color: blue;
+  font-size: 1em;
+  /* text-decoration-style: dotted;
+  text-decoration-color: blue; */
+}
+
+p > a:visited {
+  color: purple;
+  /* text-decoration-color: purple; */
 }
 
 body {
@@ -58,7 +72,7 @@ article > * {
 
 article > p > img {
   display: block;
-  margin: 24px auto 24px auto; /* HACK: negative margin */
+  margin: 24px auto 24px auto;
   border-radius: 12px 12px;
 
   max-height: 80vh;
@@ -107,11 +121,6 @@ main > .media {
 p {
   font-size: 18px;
   line-height: var(--line-height);
-}
-
-a {
-  color: var(--text-color);
-  transition: color 0.1s ease-in-out;
 }
 
 a:visited:hover {
@@ -303,12 +312,14 @@ h2 {
 }
 
 blockquote {
-  min-width: 691px; /* FIX OFFSET NUM */
-  background-color: var(--blockquote-bg);
+  border-left: 2px solid gray;
   color: var(--blockquote-text-color);
   border-radius: 0px 0px 12px 12px;
   padding: 24px;
   margin-bottom: 24px;
+
+  max-width: 440px;
+  color: rgb(168, 168, 168);
 }
 
 blockquote > p {
@@ -342,6 +353,10 @@ blockquote > p {
     right: 0;
     border-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
+  }
+
+  article > p {
+    width: var(--main-width);
   }
 
   article > p > img,

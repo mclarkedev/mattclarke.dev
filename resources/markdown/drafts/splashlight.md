@@ -1,10 +1,27 @@
-Title: On Using Data
+Title: Splashlight Website
 
-# On Using Data
+###### ☉ Case Study • Growth, Design
 
-Splashlight’s Intelligent Imagery Platform is an end-to-end content management platform, which simplifies the complex omni-channel content creation process, enabling brands to focus on their customer journey.
-From 2017–2019, we launched the pilot program for Splashtag, a web analytics and experimentation tool that allows for content teams to examine the reach, location, and trends across their creative decisions.
-Responsibilities
-User experience design, service design, design operations, content strategy, and information architecture.
-Team
-Robyn Dutra (VP of Creative), Thomas Brodin (Design Director), Vivian Zhang (Designer), Say Lim, (Designer), Joe Stanek (UX Copywriter), Ted Washburne (VP of Research & Analytics), Mohammad Bashir (Technology Lead).
+# Splashlight Website
+
+![A web prototype.](/videos/splashlight-web.mp4)
+
+[Splashlight Studios](https://splashlight.com/) specializes in high-volume and high-quality creative photography production. I joined Splashlight to help package and launch their production pipeline technology to large retail brands such as Target and Under Armour. In addition to project management and design coordination, I designed their new website and guided the go-to-market strategy for their analytics solution.
+
+A few user-experience basics helped along the way:
+
+![A website prototype.](/images/spl1.png)
+
+> Clearly list value propositions.
+
+![A website prototype.](/images/spl2.png)
+
+> Use user-centered verbs such as _build_ or _get_.
+
+![A website prototype.](/images/spl3.png)
+
+> Use graphics to highlight the journey.
+
+![A website prototype.](/images/spl4.png)
+
+> Use video to explain and inspire.

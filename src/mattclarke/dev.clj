@@ -1,7 +1,8 @@
 (ns mattclarke.dev
   (:require [hawk.core :as hawk]
             [me.raynes.fs :refer [copy]]
-            [mattclarke.core :refer [build-md!]]))
+
+            [clojure.java.shell :refer [sh]]))
 
 (def dev-config
   {:paths ["src/mattclarke" "resources"]})
@@ -24,8 +25,8 @@
                               ;; (println path)
                               (case ext
                                 ".css" (copy-css!)
-                                ".md" (time (build-md!))
-                                ".clj" (time (build-md!))
+                                ;; ".md" (time (sh "make"))
+                                ;; ".clj" (time (sh "make"))
                                 (println "No operation. No file matched.")))
                             )}]))
 

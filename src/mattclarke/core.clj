@@ -1,6 +1,6 @@
 (ns mattclarke.core
   (:require [markdown.core :refer [md-to-html-string-with-meta]]
-            [clojure.java.io :as io]
+            ;; [clojure.java.io :as io]
             [clojure.string :as str]
             [me.raynes.fs :refer [copy-dir-into]]
             [hiccup.core :refer [html]]
@@ -8,11 +8,11 @@
             [clojure.data.csv :as csv]
             [clojure.inspector :as inspector]
 
-            [mattclarke.utils :refer [remove-ext str=> get-files get-file-name get-file-extension]]
+            [mattclarke.utils :refer [remove-ext str=> get-files]]
             [mattclarke.head :refer [make-page-head make-index-head]]))
 
-(def host-config
-  {:dev-url "http://127.0.0.1:8000"})
+;; (def host-config
+;;   {:dev-url "http://127.0.0.1:8000"})
 
 (def build-config
   {:input-md-from "resources/markdown/studies/"
@@ -159,9 +159,8 @@
   "Make menu html from links from our md-data"
   [md-data]
   (html [:div.menu
-         [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Product Studies"]
+        ;;  [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Product Studies"]
          (make-links md-data)]))
-
 
 (defn make-index-body
   "Make index page body"
@@ -280,46 +279,10 @@
       make-md-pages2
       write-pages!2))
 
-
-(defn make-pages!
-  ""
-  [md-data]
-  (let [index-page (make-index-page md-data)
-        md-pages (write-pages!2 (make-md-pages2 md-data))]
-    (conj md-pages index-page)))
-
-(defn analyze-pages
-  "Analyze the build output and return metrics"
-  [pages]
-  (println "--------------- Build Output -------------------")
-  (println today)
-  (println "")
-  (println (count pages) "pages built")
-  (println "")
-  (run! #(println (str (host-config :dev-url) "/" (get-file-name (% :html-write-path)))) pages)
-  (println "")
-  (println "------------------------------------------------")
-  (str (count pages) " pages built"))
-
-(defn analyze-assets
-  ""
-  [asset-output]
-  (println "Assets copied: " asset-output))
-
-;; (defn build-md!
-;;   "Build html to target from markdown"
-;;   []
-;;   (analyze-pages (make-pages! (get-markdown-data))))
-
-(defn build-assets!
-  ""
-  []
-  (analyze-assets (copy-assets!)))
-
 (defn run!!
   "Run our build process"
   [_]
-  (build-assets!)
+  (println "Assets copied: "  (copy-assets!))
   (make-index-page (get-markdown-data))
   (-> (get-markdown-data)
       make-md-pages2
