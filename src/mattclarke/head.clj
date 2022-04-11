@@ -3,11 +3,11 @@
 
 (def gc
   "Global Content"
-  (let [author "Matthew Clarke"
+  (let [author "Matt Clarke"
         desc "Product lead with a background in art, design and engineering."]
     {:write-dir "public"
     ;;  :css-path "/css/global.css"
-     :site-url "https://matthewclarke.dev"
+     :site-url "https://mattclarke.dev"
      :author author
      :title author
      :description desc

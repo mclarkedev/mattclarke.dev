@@ -2,15 +2,13 @@ Title: Finding Art You Love
 
 # Finding Art You Love
 
-Keeping up with contemporary art can be taxing. Likely, for the same reasons doing anything on the web is taxing. There's lots of information and its rank with over-hyped project, scams and fruad. In the occasion you find something you love, it can feel like the haze appears again and again, whenever you dig deeper.
+Keeping up with contemporary art can be taxing. Likely, for the same reasons doing anything on the web is taxing. There's lots of information and its rank with over-hyped project, scams and fraud. In the occasion you find something you love, it can feel like the haze appears again and again, whenever you dig deeper.
 
-<br/>
-
-In a time where art can be anything or nothing, the issue seems to multiply as art-curious users search for rabbitholes and influence aesthetics at scale. With more and more NFT art markets launching online, the tension between old and new markets has steeped a very real cultural debate. The zeitgiest feels more hostile than ever.
+In a time where art can be anything or nothing, the issue seems to multiply as art-curious users search for rabbit holes and influence aesthetics at scale. With more and more NFT art markets launching online, the tension between old and new markets has steeped a very real cultural debate. The zeitgeist feels more hostile than ever.
 
 I joined Arthur, in the height of the pandemic, to help solve for this problem. In the beginning, we were convinced users needed something that didn’t exist anywhere: a personalized art feed. Because... well, we wanted a personalized feed. A mobile feed that kept us up to date about the locus of information we cared about: local galleries, remote galleries, living artists, deceased artists, and market activity. A range of content simplified by time.
 
-No matter where you stand, you’re likeling going to have an aesthetic itch to scratch from time to time. So, how do you find it? How do you sustain finding it in a rapidly changing landscape? While I’m certainly biased––having worked in art publishing––I’ve always found solace in used art book stores. I can’t always get myself there, but when I do my experience is far more memorable than sifting through online grift.
+No matter where you stand, you’re likely going to have an aesthetic itch to scratch from time to time. So, how do you find it? How do you sustain finding it in a rapidly changing landscape? While I’m certainly biased––having worked in art publishing––I’ve always found solace in used art book stores. I can’t always get myself there, but when I do my experience is far more memorable than sifting through online grift.
 
 ![Gold framed painting with the words 'New Management' written over it.](/images/manage.png "Simon Deny, ‘New Management’ (installation detail view), 2014")
 
@@ -26,11 +24,11 @@ Browsing content online is easy. Its immediately available, abundant, and highly
 
 It turns out, time can’t simplify everything. With too many types of content, interlaced and competing for attention, we had the same issue we started with. Browsing content online is complex and annoying. We seemed to fall for the age old startup addage: ‘This’ but social media!
 
-Part of the reason powerhouse social media apps work is because the content and source is simple. The more types of content or sources you add, the wider the range of user expectations and more opprotunity for confusion. Hence, you probably need an activity stream.
+Part of the reason powerhouse social media apps work is because the content and source is simple. The more types of content or sources you add, the wider the range of user expectations and more opportunity for confusion. Hence, you probably need an activity stream.
 
 So, we wondered, what type of simple user generated content can help us here? What tool could help people tell stories about art? We started working more closely with independent curators to learn how they work. Quickly enough, I found myself prototyping a web editor that let curators use the art data we had gathered in long form.
 
-[video of editor]
+!["A prototype mockup"](videos/draft1.mov)
 
 It allows for a wide range of structured data to be written about in-line. It also follows the form of magazine and books, where a real persons voice ties everything together. Sure, it’s not mobile and real-time. But is the start of an innovation of the current systems where editors are hired in-house and push content as SEO to fuel other services, adding further complexity for users to sift through. In our model, we hoped, the editor and content was good enough to be the service itself.
 

@@ -34,4 +34,4 @@ A few user-experience basics helped along the way:
 
 > Use video to explain and inspire.
 
-![A web prototype.](/videos/splashlight.mp4)
+![A web prototype.](/videos/splashlight-web.mp4)

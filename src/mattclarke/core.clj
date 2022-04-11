@@ -41,6 +41,11 @@
       [(make-video img-src) state]
       [text state])))
 
+(defn md-link-transformer
+  ""
+  [text state]
+  [text state])
+
 (defn node-to-hiccup
   "Return hiccup syntax for an enlive-html node"
   [node]
@@ -66,7 +71,7 @@
         html-name (str basename ".html")
         md-with-meta (md-to-html-string-with-meta (slurp path)
                                                   :custom-transformers
-                                                  [md-media-transformer])
+                                                  [md-media-transformer md-link-transformer])
         md-meta (md-with-meta :metadata)
         md-html (md-with-meta :html)
         md-imgs (enlive-html/select (enlive-html/html-snippet md-html) [:img])
@@ -170,7 +175,7 @@
     [:h5 "☉ Media Gallery"]
     [:div.index (make-media-table md-data)]]
    [:div
-    [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Product Studies"]
+    [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Writing"]
     [:div.index (make-table md-data)]]
    [:div
     [:h5 "☉ Links and Resources"]
@@ -255,7 +260,6 @@
   ""
   [md-data]
   (write-page! (make-index-page-data md-data) (make-header) (make-index-footer))) ;; Index only has header
-
 
 (defn make-md-pages2
   "Make a list of {:path :html} data from our markdown data, to be written out"
