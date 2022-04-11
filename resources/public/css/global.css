@@ -67,7 +67,7 @@ article > * {
   /* display: block;
   margin: 24px auto 24px auto; */
   border-radius: 12px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
 }
 
 article > p > img {
@@ -320,7 +320,7 @@ blockquote {
   margin-bottom: 24px;
 
   max-width: 414px;
-  color: rgb(168, 168, 168);
+  color: rgb(110, 110, 110);
 }
 
 blockquote > p {
