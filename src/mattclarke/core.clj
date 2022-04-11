@@ -164,7 +164,7 @@
   "Make menu html from links from our md-data"
   [md-data]
   (html [:div.menu
-        ;;  [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Product Studies"]
+        ;;  [:h5 "☉ Writing"]
          (make-links md-data)]))
 
 (defn make-index-body
@@ -182,7 +182,7 @@
     [:div.index (make-resource-table)]]
    [:div.bio
     [:h5 "☉ Bio"]
-    [:div {:style "max-width: 550px"}
+    [:div 
      [:span "Matthew Clarke is a product designer and developer based in Brooklyn, NY. "]
      [:span "He's worked on digital products at Arthur, Datavore Labs, and Splashlight, and in media at Gagosian Gallery, Vice Media, and New Museum of Contemporary Art"]]]))
 
