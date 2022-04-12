@@ -6,9 +6,13 @@
 (defn fetch-url [url]
   (html/html-resource (java.net.URL. url)))
 
-(defn meta-tags [url] (filter #(get-in % [:attrs :property]) (html/select url [:meta])))
+(defn meta-tags [url]
+  (filter #(get-in % [:attrs :property])
+          (html/select url [:meta])))
 
-(defn og-tags [meta-tags] (filter #(str/starts-with? (get-in % [:attrs :property]) "og:") meta-tags))
+(defn og-tags [meta-tags]
+  (filter #(str/starts-with? (get-in % [:attrs :property]) "og:")
+          meta-tags))
 
 (defn og:image [og-tags] (let [og:image-tag (filter #(str/starts-with? (get-in % [:attrs :property]) "og:image") og-tags)]
                 (if og:image-tag (get-in (first og:image-tag) [:attrs :content]) "")))
@@ -40,12 +44,10 @@
   (map #(get-in % [:attrs :href]) tags))
 
 (defn filter-external-links
-  ""
   [hrefs]
   (filter #(str/starts-with? % "http") hrefs))
 
 (defn get-all-links
-  ""
   [url]
   (-> url
       fetch-url

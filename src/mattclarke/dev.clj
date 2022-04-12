@@ -2,7 +2,8 @@
   (:require [hawk.core :as hawk]
             [me.raynes.fs :refer [copy]]
 
-            [clojure.java.shell :refer [sh]]))
+            ;; [clojure.java.shell :refer [sh]]
+            ))
 
 (def dev-config
   {:paths ["src/mattclarke" "resources"]})

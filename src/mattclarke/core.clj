@@ -9,10 +9,7 @@
             [clojure.inspector :as inspector]
 
             [mattclarke.utils :refer [remove-ext str=> get-files]]
-            [mattclarke.head :refer [make-page-head make-index-head]]))
-
-;; (def host-config
-;;   {:dev-url "http://127.0.0.1:8000"})
+            [mattclarke.head :refer [make-page-head make-index-head]]))})
 
 (def build-config
   {:input-md-from "resources/markdown/studies/"
@@ -42,7 +39,6 @@
       [text state])))
 
 (defn md-link-transformer
-  ""
   [text state]
   [text state])
 
@@ -257,7 +253,6 @@
     (str=> from to)))
 
 (defn make-index-page
-  ""
   [md-data]
   (write-page! (make-index-page-data md-data) (make-header) (make-index-footer))) ;; Index only has header
 
