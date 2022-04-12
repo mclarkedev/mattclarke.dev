@@ -1,5 +1,6 @@
 :root {
   --bg-color: white;
+  --bg-color-hover: #cdcdcd4f;
   --blockquote-bg: beige;
   --text-color: black;
   --blockquote-text-color: black;
@@ -12,15 +13,16 @@
   --border: 1px solid black;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #15141a;
+    --bg-color-hover: #ffffff4f;
     --blockquote-bg: rgb(49, 53, 56);
     --text-color: rgb(255, 255, 255);
     --blockquote-text-color: rgb(199, 202, 205);
     --border: 1px solid rgb(255, 255, 255);
   }
-}
+} */
 
 a {
   font-size: 14px;
@@ -29,8 +31,23 @@ a {
 }
 
 p > a {
-  color: blue;
   font-size: 1em;
+  background-color: #a9a9a94f;
+  border-radius: 630px;
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 5px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+p > a:hover {
+  background-color: var(--bg-color-hover);
+}
+
+p > a {
+  /* color: blue;
+  font-size: 1em; */
   /* text-decoration-style: dotted;
   text-decoration-color: blue; */
 }
@@ -53,7 +70,12 @@ strong {
 }
 
 main {
+  margin-top: 15vh;
   padding: var(--padding);
+}
+
+article {
+  margin-bottom: 25vh;
 }
 
 article > * {
@@ -185,10 +207,6 @@ header > a {
   font-weight: var(--heading-weight);
 }
 
-.writing {
-  margin-top: 30vh;
-}
-
 table {
   border-collapse: collapse;
   width: 100%;
@@ -298,13 +316,22 @@ h2 {
   margin-block-end: 24px;
 }
 
-/* All media in media gallery must be small, regardless of in-line styles */
+/* All media in media gallery must be small, regardless of in-line styles applied by build */
+/* TODO: remove inline styles applied by build*/
 .media > .media-section > *,
 .media > * {
-  height: 100px !important;
-  width: 100px !important;
-  margin-right: 12px !important;
+  height: 86px !important;
+  width: 124px !important;
   object-fit: contain;
+}
+
+.media > .media-section > * {
+  background-color: rgb(40, 40, 40);
+  border: 2px solid rgb(161, 161, 161);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  margin-right: 12px;
 }
 
 .media-section {
