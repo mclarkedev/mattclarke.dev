@@ -1,20 +1,28 @@
 Title: Selling Products Online
 
+###### ☉ Case Study
+
 # Selling Products Online
 
-Selling products online is hard. Particularly in fashion, where purchasing clothes is just much harder.
+Selling products online is hard. Particularly in fashion, where purchasing clothes is just downright too complex.
 
-"Will it fit me? Is it itchy? My card isn't stored on here? But they have the same style for half off? I don't want this anymore..."
+> Will it fit me? Is my card stored on here? But this site has the same style for half off? I don't want this anymore...
 
-And that's just user journey. The service delivery requires most literally a Six Sigma black-belt to understand. Balancing the logistics and creative can be tricky at high-volume. Struggling to get the balance right, large e-commerce retailers partner with Splashlight to shoot high-volume creative assets on seasonal deadlines.
+That's just user journey. The service delivery requires most literally a Six Sigma black-belt to understand. Balancing the logistics and creative can be tricky for large e-commerce retailers. Struggling to get the balance right, businesses partner with [Splashlight](https://www.splashlight.com) to shoot high-volume creative assets on tight seasonal deadlines.
 
-SplashTag helps creatives match model and photography attributes to web users.
+Splaslight offers niche advantages such as the tagging and monitoring of creative assets. Currently, creative teams wait full business cycles before reviewing the performance of new styles, visual communication, and branding. They often require data and engineering teams to answer basic questions. With Splashlight's software, creatives teams can take ownership of analyzing, inspecting, and understanding data.
 
 ![A web prototype.](/videos/splashlight.mp4)
 
-> Data dashboard showing photography performance by model category.
+> Prototype of a data dashboard showing photography performance by model category.
 
-I joined Splashlight to help package and launch their production technology to large retail brands such as Target and Under Armour. In addition to project management and design coordination, I designed their new website and guided the go-to-market strategy for their analytics solution.
+As a UX program manager at Splashlight, I helped package and launch this new technology to clients such as Target and Under Armour.
+
+![An image of a model with data points around her: "Camera Angle", "Makeup", etc.](/images/spl5.png)
+
+> Concept imagery showing data points
+
+In addition to management and coordination, I designed their new website and guided the go-to-market strategy for the analytics solution.
 
 A few user-experience basics helped along the way:
 
