@@ -17,7 +17,15 @@
 (defn og:image [og-tags] (let [og:image-tag (filter #(str/starts-with? (get-in % [:attrs :property]) "og:image") og-tags)]
                 (if og:image-tag (get-in (first og:image-tag) [:attrs :content]) "")))
 
-(defn get-og:image
+(defn url->og
+  "Get opengraph image"
+  [url]
+  (-> url
+      fetch-url
+      meta-tags
+      og-tags))
+
+(defn url->og:image
   "Get opengraph image"
   [url]
   (-> url
@@ -29,12 +37,12 @@
 (defn get-og:images
   "Get opengraph image for each in map"
   [coll]
-  (map get-og:image coll))
+  (map url->og:image coll))
 
 ;; (get-og:images ["https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup", 
 ;;                 "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup"])
 
-;; (get-og:image "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup")
+;; (url->og:image "https://stackoverflow.com/questions/48621712/parse-html-in-enlive-like-in-beautifulsoup")
 
 (def url "http://127.0.0.1:8000/")
 
@@ -56,6 +64,11 @@
       filter-hrefs
       filter-external-links))
 
+(defn url->og [url]
+  (-> url
+      fetch-url
+      (html/select [:a])))
+
 (comment
   (-> url
       fetch-url
@@ -67,12 +80,17 @@
       get-og:images)
   )
 
-  (-> url
-      get-all-links
-      get-og:images)
+  ;; (-> url
+  ;;     get-all-links
+  ;;     get-og:images)
+
+(-> "https://splashlight.com/"
+    fetch-url)
+
   (print "end")
 
 (comment 
   (-> url
     get-all-links
-    build-screenshots!))
+    build-screenshots!)
+  )

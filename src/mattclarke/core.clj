@@ -9,7 +9,9 @@
             [clojure.inspector :as inspector]
 
             [mattclarke.utils :refer [remove-ext str=> get-files]]
-            [mattclarke.head :refer [make-page-head make-index-head]]))})
+            [mattclarke.head :refer [make-page-head make-index-head]]
+            ;; [mattclarke.opengraph :refer [url->og:image url->og]]
+            [mattclarke.browser :refer [url->screenshot!]]))
 
 (def build-config
   {:input-md-from "resources/markdown/studies/"
@@ -38,12 +40,8 @@
       [(make-video img-src) state]
       [text state])))
 
-(defn md-link-transformer
-  [text state]
-  [text state])
-
 (defn node-to-hiccup
-  "Return hiccup syntax for an enlive-html node"
+  "Return hiccup syntax for an enlive-html node, recurssively through :content."
   [node]
   (let [tag (node :tag)
         attrs (node :attrs)
@@ -51,13 +49,56 @@
     [tag
      attrs
      (if (empty? content)
-       ""
-       (apply node-to-hiccup (node :content)))]))
+       "" ;; Empty strings deconstruct into hiccup html
+       (apply node-to-hiccup content))]))
 
 (defn nodes-to-hiccup
   "Return text for nodes"
   [nodes]
   (map node-to-hiccup nodes))
+
+(defn transform-link [link-node]
+  {:tag (link-node :tag)
+   :attrs (merge (link-node :attrs)
+                 {:target "_blank"
+                  :class "link tooltip"})
+   :content (link-node :content)})
+
+(defn run-if-map
+  "Ruturn the result of (func x) if x is a map, otherwise return x"
+  [x func]
+  (if (map? x)
+    (func x)
+    x ;; passthrough
+    ))
+
+(defn transform-content-with-links
+  "Return in-line content with its in-line tags transformed by transform-link"
+  [content]
+  (map #(run-if-map % transform-link) content))
+
+(defn md-link-transformer
+  [text state]
+  (let [nodes (enlive-html/select (enlive-html/html-snippet text) [:p])
+        node (first nodes)
+        a-nodes (enlive-html/select nodes [:a])
+        includes-a? (not-empty a-nodes)]
+    (if includes-a?
+      [(html [:p (map #(if (string? %)
+                         %
+                         (if (map? %)
+                           [(% :tag)
+                            (% :attrs)
+                            (% :content)
+                            [:span
+                             {:class "tooltip-content"}
+                             [:img
+                              {:src (url->screenshot! ((% :attrs) :href)) :width "300"}]]]
+                           "not map"))
+                      (transform-content-with-links (node :content)))])
+       state]
+      [text state] ;; noop
+      )))
 
 (defn make-markdown-data
   "Return helper data for f (a markdown Java File) to be exported as html."
@@ -70,7 +111,7 @@
                                                   [md-media-transformer md-link-transformer])
         md-meta (md-with-meta :metadata)
         md-html (md-with-meta :html)
-        md-imgs (enlive-html/select (enlive-html/html-snippet md-html) [:img])
+        md-imgs (enlive-html/select (enlive-html/html-snippet md-html) [[:img (enlive-html/attr? :src)]])  ;; [[:tag match attribute inside :tag]] https://github.com/cgrand/enlive
         md-videos (enlive-html/select (enlive-html/html-snippet md-html) [:video])
         media-hiccup (nodes-to-hiccup (concat md-imgs md-videos))]
     {:md-name (.getName f)
@@ -178,7 +219,7 @@
     [:div.index (make-resource-table)]]
    [:div.bio
     [:h5 "☉ Bio"]
-    [:div 
+    [:div
      [:span "Matthew Clarke is a product designer and developer based in Brooklyn, NY. "]
      [:span "He's worked on digital products at Arthur, Datavore Labs, and Splashlight, and in media at Gagosian Gallery, Vice Media, and New Museum of Contemporary Art"]]]))
 
@@ -241,7 +282,6 @@
     (spit (md :html-write-path) html) html)
   md)
 
-
 (defn copy-assets!
   "Copy public assets from resource to target"
   []
@@ -256,7 +296,7 @@
   [md-data]
   (write-page! (make-index-page-data md-data) (make-header) (make-index-footer))) ;; Index only has header
 
-(defn make-md-pages2
+(defn make-md-pages
   "Make a list of {:path :html} data from our markdown data, to be written out"
   [md-data]
   (map #(identity {:path (% :html-write-path)
@@ -266,17 +306,11 @@
                                        :body (% :html-body)
                                        :footer (make-page-footer md-data)})}) md-data))
 
-(defn write-pages!2
+(defn write-pages!
   "Writes page{:html} => page{:path} for pages"
   [pages]
   (run! #(spit (% :path) (% :html)) pages)
   pages)
-
-(comment
-  (template-md {:head ""})
-  (-> (get-markdown-data)
-      make-md-pages2
-      write-pages!2))
 
 (defn run!!
   "Run our build process"
@@ -284,12 +318,11 @@
   (println "Assets copied: "  (copy-assets!))
   (make-index-page (get-markdown-data))
   (-> (get-markdown-data)
-      make-md-pages2
-      write-pages!2)
-  ;; (build-md!)
-  )
+      make-md-pages
+      write-pages!))
 
 (comment
+  (template-md {:head ""})
   (println (get-markdown-data))
   (inspector/inspect-tree (get-markdown-data))
   (time (run!! {:args ""})))

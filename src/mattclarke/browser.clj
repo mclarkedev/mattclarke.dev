@@ -12,19 +12,22 @@
   [url save-path]
   (let [driver (web/chrome {:size [1080 820]})]
     (doto driver
-        (web/go url)
-        (web/screenshot save-path)
-        (web/quit))
-    (println (str "Saved to " save-path))))
+      (web/go url)
+      (web/screenshot save-path)
+      (web/quit))
+    (println (str "Saved to " save-path)))
+  save-path)
 
 (defn cached-screenshot!
   "Visit the link and snap a screenshot"
   [url]
-  (let [save-path (str build-output (encode url) ".png")
+  (let [hash-name (str (encode url) ".png")
+        save-path (str build-output hash-name)
         img-exists? (.exists (io/file save-path))]
     (if img-exists?
       (println (str "Cached at " save-path))
-      (screenshot! url save-path))))
+      (screenshot! url save-path))
+    (str "images/screenshots/" hash-name)))
 
 (defn build-screenshots!
   "Build screenshot images in target from urls"
@@ -33,8 +36,16 @@
   (println urls)
   (dorun (map cached-screenshot! urls)))
 
+(defn url->screenshot!
+  "Takes screenshot of url, returns file path" 
+  [url]
+  (cached-screenshot! url))
+
+(url->screenshot! "https://www.google.com")
+
 (comment
-  (build-screenshots! urls))
+  (build-screenshots! urls)
+  )
 
 ;; Media Table ------------------------------------------------------------------------
 
