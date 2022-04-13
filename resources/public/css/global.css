@@ -1,6 +1,7 @@
 :root {
   --bg-color: white;
   --bg-color-hover: #cdcdcd4f;
+  --bg-color-light: rgb(249 249 249);
   --blockquote-bg: beige;
   --text-color: black;
   --blockquote-text-color: black;
@@ -17,6 +18,7 @@
   :root {
     --bg-color: #15141a;
     --bg-color-hover: #ffffff4f;
+    --bg-color-light: rgb(40, 40, 40);
     --blockquote-bg: rgb(49, 53, 56);
     --text-color: rgb(255, 255, 255);
     --blockquote-text-color: rgb(199, 202, 205);
@@ -326,8 +328,8 @@ h2 {
 }
 
 .media > .media-section > * {
-  background-color: rgb(40, 40, 40);
-  border: 2px solid rgb(161, 161, 161);
+  background-color: var(--bg-color-light);
+  border: var(--border);
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
@@ -465,9 +467,15 @@ blockquote > p {
   bottom: 100%;
   left: 50%;
   margin-left: -160px; /* Use half of the width (120/2 = 60), to center the tooltip */
+
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltip-content {
   visibility: visible;
+
+  opacity: 1;
+  transition: visibility 0s linear 300ms, opacity 300ms;
 }
