@@ -156,6 +156,18 @@
              [:td [:a {:href (nth % 1) :target "_blank"} (nth % 2)]]])
           (get-resources))]]))
 
+(defn make-cv-table
+  "Fetch and make resource table from resources csv data"
+  []
+  (html
+   [:table
+    [:tbody
+     (map #(html
+            [:tr
+             [:td [:a {:href (nth % 1) :target "_blank"} (nth % 0)]]
+             [:td [:a {:href (nth % 1) :target "_blank"} (nth % 1)]]])
+          (:body (get-csv "resources/cv.csv")))]]))
+
 (defn make-media-section
   "Make media section form :media-hiccup md-data"
   [md]
@@ -212,8 +224,11 @@
     [:h5 "☉ Media Gallery"]
     [:div.index (make-media-table md-data)]]
    [:div
-    [:h5 {:title "Bit-size case studies of product features I've worked on."} "☉ Writing"]
+    [:h5 "☉ Writing"]
     [:div.index (make-table md-data)]]
+   [:div
+    [:h5 "☉ CV"]
+    [:div.index (make-cv-table)]]
    [:div
     [:h5 "☉ Links and Resources"]
     [:div.index (make-resource-table)]]
